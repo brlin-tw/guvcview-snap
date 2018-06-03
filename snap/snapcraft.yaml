@@ -1,15 +1,11 @@
-name: my-snap-name # you probably want to 'snapcraft register <name>'
-version: '0.1' # just for humans, typically '1.2+git' or '1.3.2'
-summary: Single-line elevator pitch for your amazing snap # 79 char long summary
-description: |
-  This is my-snap's description. You have a paragraph or two to tell the
-  most important story about your snap. Keep it under 100 words though,
-  we live in tweetspace and your description wants to look good in the snap
-  store.
+name: guvcview
+version: git
+summary: A simple v4l2 full-featured video grabber
+description: >
+  GTK+ UVC Viewer is a simple interface for capturing and viewing video from v4l2 devices, with a special emphasis for the linux uvc driver.
 
-confinement: devmode # use 'strict' once you have the right plugs and slots
+  This package provides a control interface based on Gtk3  A console only option is also available.
 
-parts:
-  my-part:
-    # See 'snapcraft plugins'
-    plugin: nil
+  You can also use guvcview has a control window only, (from console: guvcview --control_only), this allows image control on other apps, like ekiga, cheese, mplayer, skype, ...
+confinement: devmode
+grade: devel
