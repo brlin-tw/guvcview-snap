@@ -1,5 +1,17 @@
+%YAML 1.2
+---
 name: guvcview
 version: git
+version-script: |
+  set -eu
+
+  git \
+    -C parts/guvcview/src \
+    describe \
+    --always \
+    --tags \
+    | sed s/^v//
+
 summary: A simple v4l2 full-featured video grabber
 description: >
   GTK+ UVC Viewer is a simple interface for capturing and viewing video from v4l2 devices, with a special emphasis for the linux uvc driver.
@@ -13,3 +25,340 @@ description: >
 
 confinement: devmode
 grade: devel
+
+apps:
+  guvcview:
+    command: >
+      env LD_LIBRARY_PATH="$SNAP/usr/local/lib:${LD_LIBRARY_PATH}"
+      desktop-launch
+      alsa-launch
+      guvcview
+    plugs:
+      - alsa
+      - camera
+      - desktop
+      - desktop-legacy
+      - home
+      - pulseaudio
+      - removable-media
+      - x11
+    desktop: share/applications/guvcview.desktop
+
+parts:
+  # Enable ccache by setting up a dependency of this part
+  # and prepend /usr/lib/ccache to the PATH colon-
+  # separated array:
+  #
+  #   PATH=/usr/lib/ccache:"${PATH}"
+  #
+  # NOTE: Currently the above setup can't be applied to
+  #       scriptlets as plugins doesn't honor env. var.
+  #       customizations.
+  #
+  # or passing custom CC CXX definition to the parts'
+  # configure program.
+  ccache:
+    plugin: nil
+    build-packages:
+      - ccache
+    override-build: 'true'
+    override-stage: 'true'
+    override-prime: 'true'
+
+  ffmpeg:
+    after:
+      - ccache
+
+    source: git://github.com/FFmpeg/FFmpeg.git
+    source-type: git
+    source-tag: release/3.4
+    source-depth: 1
+
+    plugin: autotools
+    configflags:
+      - --enable-gpl
+      #- --enable-nonfree
+
+      #- --enable-libfdk-aac
+      - --enable-libmp3lame
+      - --enable-libopus
+      - --enable-libtheora
+      - --enable-libvpx
+      - --enable-libx264
+
+      - --enable-shared
+
+      - --disable-doc
+      - --disable-programs
+
+      # WORKAROUND: snapcraftctl doesn't honor environmental variable
+      # customizations
+      - --cc=ccache gcc
+      - --cxx=ccache g++
+
+    build-packages:
+      # Base dependencies
+      - autoconf
+      - automake
+      - build-essential
+      - cmake
+      - git-core
+      - libass-dev
+      - libfreetype6-dev
+      - libsdl2-dev
+      - libtool
+      - libva-dev
+      - libvdpau-dev
+      - libvorbis-dev
+      - libxcb1-dev
+      - libxcb-shm0-dev
+      - libxcb-xfixes0-dev
+      - pkg-config
+      - texinfo
+      - wget
+      - zlib1g-dev
+
+      # An assembler used by some libraries
+      - yasm
+
+      # H.264 video encoder
+      - libx264-dev
+
+      # H.265/HEVC video encoder
+      - libx265-dev
+      - libnuma-dev
+
+      # VP8/VP9 video encoder/decoder
+      - libvpx-dev
+
+      # AAC audio encoder
+      # Incompatible with --enable-gpl
+      #- libfdk-aac-dev
+
+      # MP3 audio encoder
+      - libmp3lame-dev
+
+      # Opus audio decoder and encoder
+      - libopus-dev
+
+      # AV1 video encoder/decoder not provided by Ubuntu 16.04
+      #- libaom-av1-dev(?)
+
+      # OGG/Theora video codec
+      - libtheora-dev
+
+    override-build: |
+      set -eu
+
+      # Setup ccache
+      # DISABLED: snapcraftctl doesn't honor environmental variable
+      # customizations
+      # PATH=/usr/lib/ccache:"${PATH}"
+
+      snapcraftctl build
+
+    stage-packages:
+      - libasyncns0
+      - libdb5.3
+      - libflac8
+      - libjack-jackd2-0
+      - libmp3lame0
+      - libogg0
+      - libopus0
+      - libpulse0
+      - libsdl2-2.0-0
+      - libsndfile1
+      - libsndio6.1
+      - libtheora0
+      - libva-drm1
+      - libva-x11-1
+      - libva1
+      - libvdpau1
+      - libvorbis0a
+      - libvorbisenc2
+      - libvpx3
+      - libxcb-shape0
+      - libxcb-shm0
+      - libxss1
+      - libxv1
+      - libxxf86vm1
+      - libx264-148
+
+    # DISABLED: stage step patching of pkg-config doesn't
+    # honour the organize path changes
+    #organize:
+      #usr/local: /
+    filesets:
+      examples:
+        - usr/local/share/ffmpeg/examples/*
+      executables:
+        - usr/local/bin/*
+      files-in-staged-packages:
+        - usr/*
+        - -usr/share/alsa/*
+      library-headers:
+        - usr/local/include/*
+      manpages:
+        - usr/local/share/man/*
+      pkg-config:
+        - usr/local/lib/pkgconfig/*
+      shared-libraries:
+        - usr/local/lib/*.so*
+      static-libraries:
+        - usr/local/lib/*.a
+    stage:
+      - $files-in-staged-packages
+      - $library-headers
+      - $pkg-config
+      - $shared-libraries
+      - $static-libraries
+    override-stage: |
+      set -eu
+
+      snapcraftctl stage
+
+      # PATCH: ffmpeg's libdir and includedir isn't
+      #        depend on ${prefix}
+      sed \
+        --in-place \
+        's#=/usr/local#=${prefix}#' \
+        "${SNAPCRAFT_STAGE}"/usr/local/lib/pkgconfig/*.pc
+    prime:
+      - $files-in-staged-packages
+      - $shared-libraries
+
+  alsa:
+    after: [alsa-lib, alsa-plugins]
+
+  alsa-plugins:
+    after: [alsa-lib]
+
+  alsa-lib:
+    plugin: autotools
+    source: https://mirrorservice.org/sites/ftp.alsa-project.org/pub/lib/alsa-lib-1.1.6.tar.bz2
+    configflags:
+      - --prefix=/usr
+      - --sysconfdir=/etc
+      - --libexec=/usr/lib
+      - --libdir=/usr/lib
+      - --localstatedir=/var
+      - --with-configdir=/snap/$SNAPCRAFT_PROJECT_NAME/current/usr/share/alsa
+      - --with-plugindir=/snap/$SNAPCRAFT_PROJECT_NAME/current/usr/lib/alsa-lib
+      - --disable-alisp
+      - --disable-aload
+      - --disable-python
+      # Requires by ffmpeg part
+      #- --disable-rawmidi
+      - --disable-static
+      - --disable-topology
+      - --disable-ucm
+      - --enable-symbolic-functions
+
+      - CC=ccache gcc
+      - CXX=ccache g++
+
+  guvcview:
+    after:
+      - alsa
+      - ccache
+      - desktop-gtk3
+      - ffmpeg
+    source: git://git.code.sf.net/p/guvcview/git-master
+    source-depth: 30
+
+    plugin: autotools
+    configflags:
+      - PKG_CONFIG_PATH=$SNAPCRAFT_STAGE/usr/local/lib/pkgconfig:$SNAPCRAFT_STAGE/usr/lib/pkgconfig
+
+      # WORKAROUND: snapcraftctl doesn't honor environmental variable
+      # customizations
+      - CC=ccache gcc
+      - CXX=ccache g++
+
+      # WORKAROUND: Configure script doesn't set required
+      #             LDFLAGS for custom FFmpeg library
+      - LDFLAGS=-Wl,-rpath-link=$SNAPCRAFT_STAGE/usr/local/lib
+
+    build-packages:
+      # Ubuntu 16.04 provided FFmpeg is too old
+      # Replaced by `ffmpeg` remote part
+      #- libavcodec-dev
+      #- libavutil-dev
+
+      # DISABLED: Requires manual patching, replaced by alsa-lib part
+      # https://forum.snapcraft.io/t/reusable-alsa-lib-part/3556
+      #- libasound2
+
+      - autoconf
+      - automake
+      - intltool
+      - libglib2.0-dev
+      - libgsl-dev
+      - libgtk-3-dev
+      - libpng12-dev
+      - libsdl2-dev
+      - libtool
+      - libudev-dev
+      - libusb-1.0-0-dev
+      - libv4l-dev
+      - portaudio19-dev
+    override-build: |
+      set -eu
+
+      # Setup ccache
+      # DISABLED: Environmental variable customization is not honored
+      #PATH=/usr/lib/ccache:"${PATH}"
+
+      snapcraftctl build
+
+    stage-packages:
+      - libv4l-0
+      - libv4lconvert0
+      - libgsl2
+      - libportaudio2
+      - libpulse0
+      - libusb-1.0-0
+    filesets:
+      appdata:
+        - share/appdata
+      desktop-entries:
+        - share/applications/*
+      documentations:
+        - share/doc/*
+      executables:
+        - bin/*
+      files-from-stage-packages:
+        - usr/*
+
+        # Special case for libusb-1.0.so.0
+        - lib/x86_64-linux-gnu/*
+      library-headers:
+        - include/*
+      localizations:
+        - share/locale/*
+      manpages:
+        - share/man/*
+      pixmaps:
+        - share/pixmaps/*
+      pkgconfig:
+        - lib/pkgconfig/*
+      shared-libraries:
+        - lib/*.so*
+      static-libraries:
+        - lib/*.a
+    stage:
+      - $executables
+      - $desktop-entries
+      - $files-from-stage-packages
+      - $library-headers
+      - $manpages
+      - $pkgconfig
+      - $pixmaps
+      - $shared-libraries
+    prime:
+      - $executables
+      - $desktop-entries
+      - $files-from-stage-packages
+      - $manpages
+      - $pixmaps
+      - $shared-libraries
