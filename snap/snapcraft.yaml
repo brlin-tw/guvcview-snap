@@ -268,6 +268,9 @@ parts:
 
     plugin: autotools
     configflags:
+      # WORKAROUND: Resource data path not relocatable
+      - --datarootdir=/snap/guvcview/current/share
+
       - PKG_CONFIG_PATH=$SNAPCRAFT_STAGE/usr/local/lib/pkgconfig:$SNAPCRAFT_STAGE/usr/lib/pkgconfig
 
       # WORKAROUND: snapcraftctl doesn't honor environmental variable
@@ -318,6 +321,8 @@ parts:
       - libportaudio2
       - libpulse0
       - libusb-1.0-0
+    organize:
+      snap/guvcview/current/: /
     filesets:
       appdata:
         - share/appdata
