@@ -73,7 +73,8 @@ apps:
       # Without this access guvcview will crash on launch
       - hardware-observe # Non-A-C
 
-      - alsa
+      # Audio access
+      - alsa # Non-A-C
       - pulseaudio
     desktop: share/applications/guvcview.desktop
 
