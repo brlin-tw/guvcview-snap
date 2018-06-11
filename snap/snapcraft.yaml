@@ -23,7 +23,16 @@ description: >
   NOTE: Audio recording is NOT supported as of now, refer the `pulseaudio` interface for more info:
     https://docs.snapcraft.io/reference/interfaces
 
-  IMPORTANT: You are required to connect the snap to the `hardware-observe` interface MANUALLY to avoid crash on launch.
+  IMPORTANT INFORMATION REGARDING PRIVILEGE CONFINEMENT:
+
+  * You are required to connect the snap to the `hardware-observe` interface MANUALLY to avoid crash on launch:
+
+    # snap connect guvcview:hardware-observe
+
+  * You are required to connect the snap to the `camera` interface manually to allow the application to access UVC cameras/webcams:
+
+    # snap connect guvcview:camera
+
 
 confinement: strict
 grade: devel
@@ -36,8 +45,10 @@ apps:
       alsa-launch
       guvcview
     plugs:
-      - alsa
+      # V4L device access
       - camera
+
+      - alsa
       - desktop
       - desktop-legacy
       - hardware-observe
