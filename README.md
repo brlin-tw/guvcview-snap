@@ -15,7 +15,11 @@ distributions.</p>
 
 ## Install
 
-    sudo snap install my-snap-name
+    sudo snap install guvcview-brlin
+    sudo snap connect guvcview-brlin:hardware-observe
+    sudo snap connect guvcview-brlin:camera
+    # Optional
+    sudo snap connect guvcview-brlin:removable-media
 
 ([Don't have snapd installed?](https://snapcraft.io/docs/core/install))
 
@@ -41,7 +45,7 @@ upstream so GTK+ UVC Viewer can authoritatively publish future releases.
   - [ ] (SKIPPED, upstream name not available) Register the snap in the store, **using the preferred upstream name**
   - [ ] Add a screenshot to this `README.md`
   - [ ] (SKIPPED, strict confinement already done) Publish the `devmode` snap in the Snap store edge channel
-  - [ ] Add install instructions to this `README.md`
+  - [x] Add install instructions to this `README.md`
   - [ ] Update snap store metadata, icons and screenshots
   - [x] Convert the snap to `strict` confinement, or `classic` confinement if it qualifies
   - [ ] Publish the confined snap in the Snap store beta channel
