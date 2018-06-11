@@ -59,6 +59,9 @@ apps:
       # X Window System access
       - x11
 
+      # Unity DE support (e.g. global menu)
+      - unity7
+
       # V4L device access
       - camera
 
