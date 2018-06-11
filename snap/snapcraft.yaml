@@ -361,6 +361,7 @@ parts:
       - $desktop-entries
       - $files-from-stage-packages
       - $library-headers
+      - $localizations
       - $manpages
       - $pkgconfig
       - $pixmaps
@@ -369,6 +370,7 @@ parts:
       - $executables
       - $desktop-entries
       - $files-from-stage-packages
+      - $localizations
       - $manpages
       - $pixmaps
       - $shared-libraries
