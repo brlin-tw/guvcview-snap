@@ -40,7 +40,7 @@ description: >
     # snap connect removable-media
 
 confinement: strict
-grade: devel
+grade: stable
 
 apps:
   guvcview:
