@@ -316,6 +316,10 @@ parts:
       snapcraftctl build
 
     stage-packages:
+      # Accelerated Renderer support for libSDL2
+      - libglu1-mesa
+      - libgl1-mesa-dri
+
       - libv4l-0
       - libv4lconvert0
       - libgsl2
