@@ -33,6 +33,11 @@ description: >
 
     # snap connect guvcview:camera
 
+  OPTIONAL INTERFACES:
+
+  * Connect the snap to the `removable-media` interface to allow the application to save file under /media and /run/media:
+
+    # snap connect removable-media
 
 confinement: strict
 grade: devel
@@ -48,13 +53,15 @@ apps:
       # V4L device access
       - camera
 
+      # Storage access
+      - home
+      - removable-media # Non-A-C
+
       - alsa
       - desktop
       - desktop-legacy
       - hardware-observe
-      - home
       - pulseaudio
-      - removable-media
       - x11
     desktop: share/applications/guvcview.desktop
 
