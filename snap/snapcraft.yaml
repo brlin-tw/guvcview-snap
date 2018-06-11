@@ -74,7 +74,9 @@ apps:
       - hardware-observe # Non-A-C
 
       # Audio access
-      - alsa # Non-A-C
+      # `alsa` interface is not necessary
+      # https://github.com/diddledan/snapcraft-alsa
+      #- alsa # Non-A-C
       - pulseaudio
     desktop: share/applications/guvcview.desktop
 
