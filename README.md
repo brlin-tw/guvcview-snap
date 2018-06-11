@@ -21,9 +21,7 @@ distributions.</p>
 
 ([Don't have snapd installed?](https://snapcraft.io/docs/core/install))
 
-<!-- Uncomment and modify this when you have a screenshot
-![Screenshot of the Snap Version of GTK+ UVC Viewer](screenshot.png?raw=true "Screenshot of the Snap Version of GTK+ UVC Viewer")
--->
+![Screenshot of the Snap Version of GTK+ UVC Viewer](screenshots/view-image-control.png?raw=true "Screenshot of the Snap Version of GTK+ UVC Viewer")
 
 <p align="center">Published for <img src="http://anything.codes/slack-emoji-for-techies/emoji/tux.png" align="top" width="24" /> with :gift_heart: by Snapcrafters</p>
 
@@ -41,7 +39,7 @@ upstream so GTK+ UVC Viewer can authoritatively publish future releases.
   - [x] Update logos and references to `[Project]` and `[my-snap-name]`
   - [x] Create a snap that runs in `devmode`
   - [ ] (SKIPPED, upstream name not available) Register the snap in the store, **using the preferred upstream name**
-  - [ ] Add a screenshot to this `README.md`
+  - [x] Add a screenshot to this `README.md`
   - [ ] (SKIPPED, strict confinement already done) Publish the `devmode` snap in the Snap store edge channel
   - [x] Add install instructions to this `README.md`
   - [ ] Update snap store metadata, icons and screenshots
