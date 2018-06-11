@@ -1,0 +1,13 @@
+diff --git a/guvcview/guvcview.c b/guvcview/guvcview.c
+index 0b9096f..87a9220 100644
+--- a/guvcview/guvcview.c
++++ b/guvcview/guvcview.c
+@@ -42,6 +42,8 @@
+ #include "gui.h"
+ #include "core_io.h"
+ 
++#include <locale.h>
++
+ int debug_level = 0;
+ 
+ static __THREAD_TYPE capture_thread;

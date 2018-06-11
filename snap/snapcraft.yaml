@@ -83,6 +83,26 @@ apps:
     desktop: share/applications/guvcview.desktop
 
 parts:
+  # Patches to fix other parts
+  patches:
+    source: snap/patches
+    plugin: dump
+
+    #organize:
+        #/: patches/
+    override-build: |
+      set -eu
+
+      snapcraftctl build
+
+      mkdir \
+        --parents \
+        "$SNAPCRAFT_PART_INSTALL"/patches
+      mv \
+        "$SNAPCRAFT_PART_INSTALL"/*.patch \
+        "$SNAPCRAFT_PART_INSTALL"/patches
+    override-prime: 'true'
+
   # Enable ccache by setting up a dependency of this part
   # and prepend /usr/lib/ccache to the PATH colon-
   # separated array:
@@ -305,8 +325,17 @@ parts:
       - ccache
       - desktop-gtk3
       - ffmpeg
+      - patches
     source: git://git.code.sf.net/p/guvcview/git-master
     source-depth: 30
+    override-pull: |
+      set -eu
+
+      snapcraftctl pull
+
+      patch \
+        --strip=1 \
+        < "${SNAPCRAFT_STAGE}"/patches/guvcview-fix-missing-c-locale-definitions.patch
 
     plugin: autotools
     configflags:
