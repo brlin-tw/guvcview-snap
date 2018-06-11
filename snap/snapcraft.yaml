@@ -63,14 +63,14 @@ apps:
       - unity7
 
       # V4L device access
-      - camera
+      - camera # Non-A-C
 
       # Storage access
       - home
       - removable-media # Non-A-C
 
       - alsa
-      - hardware-observe
+      - hardware-observe # Non-A-C
       - pulseaudio
     desktop: share/applications/guvcview.desktop
 
