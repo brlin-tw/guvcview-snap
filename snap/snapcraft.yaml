@@ -23,7 +23,7 @@ description: >
   NOTE: Audio recording is NOT supported as of now, refer the `pulseaudio` interface for more info:
     https://docs.snapcraft.io/reference/interfaces
 
-confinement: devmode
+confinement: strict
 grade: devel
 
 apps:
