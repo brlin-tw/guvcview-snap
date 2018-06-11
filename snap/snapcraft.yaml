@@ -50,6 +50,15 @@ apps:
       alsa-launch
       guvcview
     plugs:
+      # Basic graphical resources
+      - desktop
+
+      # Input method framwork/A11Y support
+      - desktop-legacy
+
+      # X Window System access
+      - x11
+
       # V4L device access
       - camera
 
@@ -58,11 +67,8 @@ apps:
       - removable-media # Non-A-C
 
       - alsa
-      - desktop
-      - desktop-legacy
       - hardware-observe
       - pulseaudio
-      - x11
     desktop: share/applications/guvcview.desktop
 
 parts:
