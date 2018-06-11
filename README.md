@@ -62,13 +62,11 @@ upstream so GTK+ UVC Viewer can authoritatively publish future releases.
 
 If you have any questions, [post in the Snapcraft forum](https://forum.snapcraft.io).
 
-<!-- 
 ## The Snapcrafters
 
-| [![Your Name](http://gravatar.com/avatar/bc0bced65e963eb5c3a16cab8b004431/?s=128)](https://github.com/yourname/) |
+| [![林博仁(Buo-ren, Lin)'s Avatar](https://www.gravatar.com/avatar/66a5b84972e73e895d5d68d48b1e1e21?s=200?size=128)](https://github.com/Lin-Buo-Ren/) |
 | :---: |
-| [Your Name](https://github.com/yourname/) |
---> 
+| [林博仁(Buo-ren, Lin)](https://Lin-Buo-Ren.github.io) |
 
 <!-- Uncomment and modify this when you have upstream contacts
 ## Upstream
