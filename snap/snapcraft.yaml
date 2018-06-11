@@ -78,6 +78,11 @@ apps:
       # https://github.com/diddledan/snapcraft-alsa
       #- alsa # Non-A-C
       - pulseaudio
+
+      # Recommendations from snappy-debug
+      - gsettings
+      - mount-observe # Non-A-C
+      - screen-inhibit-control
     desktop: share/applications/guvcview.desktop
 
 parts:
