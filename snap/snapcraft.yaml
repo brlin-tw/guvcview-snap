@@ -5,12 +5,23 @@ version: git
 version-script: |
   set -eu
 
-  git \
-    -C parts/guvcview/src \
-    describe \
-    --always \
-    --tags \
+  upstream_version="$(
+    git \
+      -C parts/guvcview/src \
+      describe \
+      --always \
+      --tags \
     | sed s/^v//
+  )"
+
+  packaging_revision="$(
+    git \
+      describe \
+      --always \
+      --dirty
+  )"
+
+  printf -- '%s' "${upstream_version}+pkg-${packaging_revision}"
 
 summary: A simple v4l2 full-featured video grabber
 description: >
