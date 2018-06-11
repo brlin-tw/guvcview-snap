@@ -23,6 +23,8 @@ description: >
   NOTE: Audio recording is NOT supported as of now, refer the `pulseaudio` interface for more info:
     https://docs.snapcraft.io/reference/interfaces
 
+  IMPORTANT: You are required to connect the snap to the `hardware-observe` interface MANUALLY to avoid crash on launch.
+
 confinement: strict
 grade: devel
 
@@ -38,6 +40,7 @@ apps:
       - camera
       - desktop
       - desktop-legacy
+      - hardware-observe
       - home
       - pulseaudio
       - removable-media
