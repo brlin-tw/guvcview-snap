@@ -195,6 +195,7 @@ parts:
         - usr/local/bin/*
       files-in-staged-packages:
         - usr/*
+        - -usr/local/*
         - -usr/share/alsa/*
       library-headers:
         - usr/local/include/*
