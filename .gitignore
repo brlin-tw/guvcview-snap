@@ -6,3 +6,9 @@ prime
 .snapcraft
 __pycache__
 *.pyc
+
+# generated during cleanbuild
+/*_source.tar.bz2
+
+# Used in `snap run --strace='-o _snapname_.strace.log ...' _snapname_`
+/*.strace.log
