@@ -407,6 +407,16 @@ parts:
       - $pkgconfig
       - $pixmaps
       - $shared-libraries
+    override-stage: |
+      set -eu
+
+      snapcraftctl stage
+
+      # Patch desktop entry to distinguish from other packaging versions
+      sed \
+        --in-place \
+        's/^Name=.*$/Name=guvcview (Snappy Edition)/' \
+        "${SNAPCRAFT_STAGE}"/share/applications/guvcview.desktop
     prime:
       - $executables
       - $desktop-entries
