@@ -235,8 +235,11 @@ parts:
       executables:
         - usr/local/bin/*
       files-in-staged-packages:
-        - usr/*
-        - -usr/local/*
+        # Avoid staging usr/local
+        - usr/bin
+        - usr/include
+        - usr/lib
+        - usr/share
         - -usr/share/alsa/*
       library-headers:
         - usr/local/include/*
