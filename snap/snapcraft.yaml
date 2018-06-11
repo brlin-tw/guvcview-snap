@@ -42,7 +42,7 @@ grade: stable
 apps:
   guvcview:
     command: >
-      env LD_LIBRARY_PATH="$SNAP/usr/local/lib:${LD_LIBRARY_PATH}"
+      env LD_LIBRARY_PATH="$SNAP"/usr/local/lib:"${LD_LIBRARY_PATH}"
       desktop-launch
       alsa-launch
       guvcview
