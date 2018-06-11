@@ -20,9 +20,6 @@ description: >
 
   You can also use guvcview has a control window only, (from console: guvcview --control_only), this allows image control on other apps, like ekiga, cheese, mplayer, skype, ...
 
-  NOTE: Audio recording is NOT supported as of now, refer the `pulseaudio` interface for more info:
-    https://docs.snapcraft.io/reference/interfaces
-
   IMPORTANT INFORMATION REGARDING PRIVILEGE CONFINEMENT:
 
   * You are required to connect the snap to the `hardware-observe` interface MANUALLY to avoid crash on launch:
