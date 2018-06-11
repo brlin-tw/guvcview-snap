@@ -69,8 +69,11 @@ apps:
       - home
       - removable-media # Non-A-C
 
-      - alsa
+      # sysfs access
+      # Without this access guvcview will crash on launch
       - hardware-observe # Non-A-C
+
+      - alsa
       - pulseaudio
     desktop: share/applications/guvcview.desktop
 
