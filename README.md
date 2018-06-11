@@ -7,11 +7,9 @@
 <p align="center"><b>This is the snap for GTK+ UVC Viewer</b>, <i>"A simple v4l2 full-featured video grabber         "</i>. It works on Ubuntu, Fedora, Debian, and other major Linux
 distributions.</p>
 
-<!-- Uncomment and modify this when you are provided a build status badge
 <p align="center">
-<a href="https://build.snapcraft.io/user/snapcrafters/fork-and-rename-me"><img src="https://build.snapcraft.io/badge/snapcrafters/fork-and-rename-me.svg" alt="Snap Status"></a>
+<a href="https://build.snapcraft.io/user/Lin-Buo-Ren/guvcview"><img src="https://build.snapcraft.io/badge/Lin-Buo-Ren/guvcview.svg" alt="Snap Status"></a>
 </p>
--->
 
 ## Install
 
