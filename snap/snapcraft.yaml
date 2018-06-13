@@ -5,9 +5,6 @@ version: git
 version-script: |
   set -eu
 
-  # Setup Git Large File Storage Installation
-  PATH="${SNAPCRAFT_STAGE}"/bin:"${PATH}"
-
   upstream_version="$(
     git \
       -C parts/guvcview/src \
@@ -99,46 +96,6 @@ apps:
     desktop: share/applications/guvcview.desktop
 
 parts:
-  # Git Large File Storage used to check if the repos are dirty
-  git-lfs:
-    plugin: nil
-    override-pull: 'true'
-    override-build: |
-      set -eu
-
-      fetch_latest_git_lfs_release_tag(){
-        # How to get list of latest tags in remote git? - Stack Overflow
-        # http://stackoverflow.com/questions/20734181/how-to-get-list-of-latest-tags-in-remote-git
-        git ls-remote https://github.com/git-lfs/git-lfs\
-          | grep -o 'refs/tags/v[0-9]*\.[0-9]*\.[0-9]*' \
-          | sort -r\
-          | head --lines=1\
-          | grep -o '[^\/]*$'
-        return 0
-      }
-
-      latest_release_tag="$(fetch_latest_git_lfs_release_tag)"
-      latest_release_ver="$(
-        printf -- "${latest_release_tag}" \
-        | sed 's/^v//'
-      )"
-      wget \
-        --output-document=- \
-        "https://github.com/git-lfs/git-lfs/releases/download/${latest_release_tag}/git-lfs-linux-amd64-${latest_release_ver}.tar.gz" \
-        | tar \
-          --gzip \
-          --extract \
-          --verbose \
-          --strip-components=1
-      env PREFIX="${SNAPCRAFT_PART_INSTALL}" \
-        ./install.sh
-    filesets:
-      executables:
-        - bin/*
-    stage:
-      - $executables
-    override-prime: 'true'
-
   # Patches to fix other parts
   patches:
     source: snap/patches
