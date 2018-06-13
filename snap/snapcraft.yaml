@@ -13,7 +13,7 @@ version-script: |
       -C parts/guvcview/src \
       describe \
       --always \
-      --dirty \
+      --dirty=-d \
       --tags \
     | sed s/^v//
   )"
@@ -21,8 +21,9 @@ version-script: |
   packaging_revision="$(
     git \
       describe \
+      --abbrev=4 \
       --always \
-      --dirty
+      --dirty=-d
   )"
 
   printf -- '%s' "${upstream_version}+pkg-${packaging_revision}"
