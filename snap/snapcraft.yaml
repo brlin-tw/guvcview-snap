@@ -136,6 +136,11 @@ parts:
     override-stage: 'true'
     override-prime: 'true'
 
+  # Custom built ffmpeg libraries for audio/video encoding
+  # DOC: CompilationGuide/Ubuntu – FFmpeg
+  #      https://trac.ffmpeg.org/wiki/CompilationGuide/Ubuntu
+  # NOTE: Only components that is compatible with GPL can be enabled!
+  # FIXME: Other encoding format support requires enabling
   ffmpeg:
     after:
       - ccache
