@@ -28,27 +28,27 @@ version-script: |
 summary: A simple v4l2 full-featured video grabber
 description: >
   GTK+ UVC Viewer is a simple interface for capturing and viewing video from v4l2 devices, with a special emphasis for the linux uvc driver.
-
+  
   This package provides a control interface based on Gtk3  A console only option is also available.
-
+  
   You can also use guvcview has a control window only, (from console: guvcview --control_only), this allows image control on other apps, like ekiga, cheese, mplayer, skype, ...
-
+  
   IMPORTANT INFORMATION REGARDING PRIVILEGE CONFINEMENT:
-
+  
   * You are required to connect the snap to the `hardware-observe` interface MANUALLY to avoid crash on launch:
-
+  
     # snap connect guvcview:hardware-observe
-
+  
   * You are required to connect the snap to the `camera` interface manually to allow the application to access UVC cameras/webcams:
-
+  
     # snap connect guvcview:camera
-
+  
   OPTIONAL INTERFACES:
-
+  
   * Connect the snap to the `removable-media` interface to allow the application to save file under /media and /run/media:
-
+  
     # snap connect removable-media
-
+  
 confinement: strict
 grade: stable
 
