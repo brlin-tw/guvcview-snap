@@ -424,7 +424,7 @@ parts:
       snap/guvcview-brlin/current/: /
     filesets:
       appdata:
-        - share/appdata
+        - share/appdata/*
       desktop-entries:
         - share/applications/*
       documentations:
