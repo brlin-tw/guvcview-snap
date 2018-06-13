@@ -199,6 +199,7 @@ parts:
       - --enable-libtheora
       - --enable-libvpx
       - --enable-libx264
+      # --enable-libx265
 
       - --enable-shared
 
@@ -239,8 +240,8 @@ parts:
       - libx264-dev
 
       # H.265/HEVC video encoder
-      - libx265-dev
-      - libnuma-dev
+      #- libx265-dev
+      #- libnuma-dev
 
       # VP8/VP9 video encoder/decoder
       - libvpx-dev
