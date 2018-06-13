@@ -13,7 +13,7 @@ distributions.</p>
 
 ## Install
 
-    sudo snap install guvcview-brlin
+    sudo snap install --channel=edge guvcview-brlin
     sudo snap connect guvcview-brlin:hardware-observe
     sudo snap connect guvcview-brlin:camera
     # Optional
