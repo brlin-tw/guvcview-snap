@@ -364,7 +364,7 @@ parts:
     plugin: autotools
     configflags:
       # WORKAROUND: Resource data path not relocatable
-      - --datarootdir=/snap/$SNAPCRAFT_PROJECT_NAME/current/share
+      - --prefix=/snap/$SNAPCRAFT_PROJECT_NAME/current
 
       - PKG_CONFIG_PATH=$SNAPCRAFT_STAGE/usr/local/lib/pkgconfig:$SNAPCRAFT_STAGE/usr/lib/pkgconfig
 
