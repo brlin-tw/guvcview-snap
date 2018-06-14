@@ -35,7 +35,7 @@ distributions.</p>
 ## What's Not
 * Gracefully terminate when required plugs are not connected
 
-## Remaining tasks
+## Remaining Tasks
 
 Snapcrafters ([join us](https://forum.snapcraft.io/t/join-snapcrafters/1325)) 
 are working to land snap install documentation and
