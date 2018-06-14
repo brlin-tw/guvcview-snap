@@ -113,6 +113,7 @@ parts:
         "$SNAPCRAFT_PART_INSTALL"/patches
       mv \
         "$SNAPCRAFT_PART_INSTALL"/*.patch \
+        "$SNAPCRAFT_PART_INSTALL"/*.sed \
         "$SNAPCRAFT_PART_INSTALL"/patches
     override-prime: 'true'
 
@@ -465,11 +466,11 @@ parts:
 
       snapcraftctl stage
 
-      # Patch desktop entry to distinguish from other packaging versions
+      # Fixup desktop entry
       sed \
         --in-place \
-        's/^Name=.*$/Name=guvcview (Snappy Edition)/' \
-        "${SNAPCRAFT_STAGE}"/share/applications/guvcview.desktop
+        --file "${SNAPCRAFT_STAGE}"/patches/postprocess-desktop-entries.sed \
+        "${SNAPCRAFT_PART_INSTALL}"/share/applications/guvcview.desktop
     prime:
       - $executables
       - $desktop-entries
