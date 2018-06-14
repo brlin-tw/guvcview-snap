@@ -25,6 +25,16 @@ distributions.</p>
 
 <p align="center">Published for <img src="http://anything.codes/slack-emoji-for-techies/emoji/tux.png" align="top" width="24" /> with :gift_heart: by Snapcrafters</p>
 
+## What's Working
+* Showing the image
+* Image Controls
+* Video Controls(format, frame size, framerate...)
+* Photo capturing
+* Video recording (including audio)
+
+## What's Not
+* Gracefully terminate when required plugs are not connected
+
 ## Remaining tasks
 
 Snapcrafters ([join us](https://forum.snapcraft.io/t/join-snapcrafters/1325)) 
