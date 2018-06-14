@@ -133,6 +133,9 @@ parts:
     plugin: nil
     build-packages:
       - ccache
+    # WORKAROUND: Non-snapcraft-generated files are pulled when nil plugin is used - snapcraft - snapcraft.io
+    # https://forum.snapcraft.io/t/non-snapcraft-generated-files-are-pulled-when-nil-plugin-is-used/5913
+    override-pull: 'true'
     override-build: 'true'
     override-stage: 'true'
     override-prime: 'true'
