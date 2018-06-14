@@ -49,6 +49,9 @@ description: >
     
     # snap connect removable-media
     
+  This package is NOT official, for any problem regarding using the package please refer to:
+  
+  https://github.com/Lin-Buo-Ren/guvcview-snap/issues
 confinement: strict
 grade: stable
 
