@@ -65,7 +65,7 @@ upstream so GTK+ UVC Viewer can authoritatively publish future releases.
   - [ ] Post an announcement in the [Snapcraft Forum](https://forum.snapcraft.io) - [link]()
   - [ ] (SKIPPED, upstream site doesn't allow access & merge request) Submit a pull request or patch upstream that adds snap install documentation - [link]()
   - [x] Submit a pull request or patch upstream that adds the `snapcraft.yaml` and any required assets/launchers - [link](https://sourceforge.net/p/guvcview/git-master/merge-requests/2)
-  - [ ] Add upstream contact information to the `README.md`  
+  - [x] Add upstream contact information to the `README.md`  
   - If upstream accept the PR:
     - [ ] Request upstream create a Snap store account
     - [ ] Contact the Snap Advocacy team to request the snap be transferred to upstream
@@ -79,10 +79,9 @@ If you have any questions, [post in the Snapcraft forum](https://forum.snapcraft
 | :---: |
 | [林博仁(Buo-ren, Lin)](https://Lin-Buo-Ren.github.io) |
 
-<!-- Uncomment and modify this when you have upstream contacts
 ## Upstream
 
-| [![Upstream Name](http://gravatar.com/avatar/bc0bced65e963eb5c3a16cab8b004431?s=128)](https://github.com/upstreamname) |
+| [![Paulo Assis](https://gravatar.com/avatar/c4ea7a0bd19a3d1528501d5c6aa57592?s=128)](https://sourceforge.net/u/assisp) |
 | :---: |
-| [Upstream Name](https://github.com/upstreamname) |
--->
+| [Paulo Assis](https://sourceforge.net/u/assisp) |
+
