@@ -8,6 +8,10 @@
 #     * `sed` script overview - `sed` scripts
 #     * `sed` commands summary - `sed` scripts
 #     * The `s` Command - `sed` scripts
+#     * Overview of basic regular expression syntax - Regular
+#       Expressions: selecting text
+#     * Back-references and Subexpressions - Regular Expressions:
+#       selecting text
 
 ## Append '(Snappy Edition)' to the application name to make it
 ## distinguishable with the other same application using different
