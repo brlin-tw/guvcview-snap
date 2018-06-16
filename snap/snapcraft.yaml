@@ -479,7 +479,7 @@ parts:
       sed \
         --in-place \
         --file "${SNAPCRAFT_STAGE}"/patches/postprocess-desktop-entries.sed \
-        "${SNAPCRAFT_PART_INSTALL}"/share/applications/guvcview.desktop
+        "${SNAPCRAFT_STAGE}"/share/applications/guvcview.desktop
     prime:
       - $executables
       - $desktop-entries
