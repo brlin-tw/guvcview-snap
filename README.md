@@ -75,7 +75,7 @@ If you have any questions, [post in the Snapcraft forum](https://forum.snapcraft
 
 ## The Snapcrafters
 
-| [![林博仁(Buo-ren, Lin)'s Avatar](https://www.gravatar.com/avatar/66a5b84972e73e895d5d68d48b1e1e21?s=200?size=128)](https://github.com/Lin-Buo-Ren/) |
+| [![林博仁(Buo-ren, Lin)'s Avatar](https://www.gravatar.com/avatar/66a5b84972e73e895d5d68d48b1e1e21?size=128)](https://github.com/Lin-Buo-Ren/) |
 | :---: |
 | [林博仁(Buo-ren, Lin)](https://Lin-Buo-Ren.github.io) |
 
