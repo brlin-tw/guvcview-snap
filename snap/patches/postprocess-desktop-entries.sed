@@ -5,9 +5,9 @@
 #
 # * GNU Sed Manual
 #   https://www.gnu.org/software/sed/manual
-#     * `sed` script overview - `sed` scripts - GNU Sed Manual
-#     * `sed` commands summary - `sed` scripts - GNU Sed Manual
-#     * The `s` Command - `sed` scripts - GNU Sed Manual
+#     * `sed` script overview - `sed` scripts
+#     * `sed` commands summary - `sed` scripts
+#     * The `s` Command - `sed` scripts
 
 ## Append '(Snappy Edition)' to the application name to make it
 ## distinguishable with the other same application using different
