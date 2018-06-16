@@ -54,6 +54,7 @@ description: >
   https://github.com/Lin-Buo-Ren/guvcview-snap/issues
 confinement: strict
 grade: stable
+icon: snap/icons/guvcview.png
 
 apps:
   guvcview:

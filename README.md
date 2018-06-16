@@ -1,5 +1,5 @@
 <h1 align="center">
-  <img src="icons/guvcview.png" alt="Icon of GTK+ UVC Viewer" title="GTK+ UVC Viewer">
+  <img src="snap/icons/guvcview.png" alt="Icon of GTK+ UVC Viewer" title="GTK+ UVC Viewer">
   <br />
   GTK+ UVC Viewer
 </h1>
