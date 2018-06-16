@@ -21,7 +21,8 @@ distributions.</p>
 
 ([Don't have snapd installed?](https://snapcraft.io/docs/core/install))
 
-![Screenshot of the Snap Version of GTK+ UVC Viewer](screenshots/view-image-control.png?raw=true "Screenshot of the Snap Version of GTK+ UVC Viewer")
+![Screenshot of the Snap Version of GTK+ UVC Viewer(Image Control)](screenshots/view-image-control.png?raw=true "Screenshot of the Snap Version of GTK+ UVC Viewer(Image Control)")  
+![Screenshot of the Snap Version of GTK+ UVC Viewer(Video Control)](screenshots/view-video-control.png?raw=true "Screenshot of the Snap Version of GTK+ UVC Viewer(Video Control)")
 
 <p align="center">Published for <img src="http://anything.codes/slack-emoji-for-techies/emoji/tux.png" align="top" width="24" /> with :gift_heart: by Snapcrafters</p>
 
