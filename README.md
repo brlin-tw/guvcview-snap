@@ -11,7 +11,7 @@ distributions.</p>
 <a href="https://build.snapcraft.io/user/Lin-Buo-Ren/guvcview"><img src="https://build.snapcraft.io/badge/Lin-Buo-Ren/guvcview.svg" alt="Snap Status"></a>
 </p>
 
-## Install
+## Installation
 
     sudo snap install guvcview-brlin
     sudo snap connect guvcview-brlin:hardware-observe
