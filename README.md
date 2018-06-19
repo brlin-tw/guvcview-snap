@@ -4,7 +4,7 @@
   GTK+ UVC Viewer
 </h1>
 
-<p align="center"><b>This is the snap for GTK+ UVC Viewer</b>, <i>"A simple v4l2 full-featured video grabber"</i>. It works on Ubuntu, Fedora, Debian, and other major Linux
+<p align="center"><b>This is the unofficial snap for GTK+ UVC Viewer</b>, <i>"A simple v4l2 full-featured video grabber"</i>. It works on Ubuntu, Fedora, Debian, and other major Linux
 distributions.</p>
 
 <p align="center">
