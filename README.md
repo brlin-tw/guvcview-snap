@@ -62,7 +62,7 @@ upstream so GTK+ UVC Viewer can authoritatively publish future releases.
   - [x] Add the provided Snapcraft build badge to this `README.md`
   - [x] Publish the snap in the Snap store stable channel
   - [x] Update the install instructions in this `README.md`
-  - [ ] Post an announcement in the [Snapcraft Forum](https://forum.snapcraft.io) - [link]()
+  - [x] Post an announcement in the [Snapcraft Forum](https://forum.snapcraft.io) - [link](https://forum.snapcraft.io/t/guvcview-a-simple-v4l2-full-featured-video-grabber/6005)
   - [ ] (SKIPPED, upstream site doesn't allow access & merge request) Submit a pull request or patch upstream that adds snap install documentation - [link]()
   - [x] Submit a pull request or patch upstream that adds the `snapcraft.yaml` and any required assets/launchers - [link](https://sourceforge.net/p/guvcview/git-master/merge-requests/2)
   - [x] Add upstream contact information to the `README.md`  
