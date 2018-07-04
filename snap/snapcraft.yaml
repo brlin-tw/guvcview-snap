@@ -1,6 +1,6 @@
 %YAML 1.2
 ---
-name: guvcview-brlin
+name: guvcview
 version: git
 version-script: |
   set -eu
@@ -431,7 +431,7 @@ parts:
       - libpulse0
       - libusb-1.0-0
     organize:
-      snap/guvcview-brlin/current/: /
+      snap/guvcview/current/: /
     filesets:
       appdata:
         - share/appdata/*
