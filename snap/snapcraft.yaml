@@ -93,6 +93,9 @@ apps:
       #- alsa # Non-A-C
       - pulseaudio
 
+      # For SDL2 hardware acceleration
+      - opengl
+
       # Recommendations from snappy-debug
       - gsettings
       - mount-observe # Non-A-C
