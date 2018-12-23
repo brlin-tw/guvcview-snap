@@ -49,7 +49,6 @@ icon: snap/gui/guvcview.png
 apps:
   guvcview:
     command: >
-      env LD_LIBRARY_PATH="$SNAP"/usr/local/lib:"${LD_LIBRARY_PATH}"
       desktop-launch
       alsa-launch
       guvcview
@@ -138,6 +137,8 @@ parts:
       - --disable-doc
       - --disable-programs
 
+      - --prefix=/
+
     build-packages:
       # Base dependencies
       - autoconf
@@ -216,15 +217,11 @@ parts:
       - libxxf86vm1
       - libx264-148
 
-    # DISABLED: stage step patching of pkg-config doesn't
-    # honour the organize path changes
-    #organize:
-      #usr/local: /
     filesets:
       examples:
-        - usr/local/share/ffmpeg/examples/*
+        - share/ffmpeg/examples/*
       executables:
-        - usr/local/bin/*
+        - bin/*
       files-in-staged-packages:
         # Avoid staging usr/local
         - usr/bin
@@ -233,15 +230,15 @@ parts:
         - usr/share
         - -usr/share/alsa/*
       library-headers:
-        - usr/local/include/*
+        - include/*
       manpages:
-        - usr/local/share/man/*
+        - share/man/*
       pkg-config:
-        - usr/local/lib/pkgconfig/*
+        - lib/pkgconfig/*
       shared-libraries:
-        - usr/local/lib/*.so*
+        - lib/*.so*
       static-libraries:
-        - usr/local/lib/*.a
+        - lib/*.a
     stage:
       - $files-in-staged-packages
       - $library-headers
@@ -257,8 +254,8 @@ parts:
       #        depend on ${prefix}
       sed \
         --in-place \
-        's#=/usr/local#=${prefix}#' \
-        "${SNAPCRAFT_STAGE}"/usr/local/lib/pkgconfig/*.pc
+        's#dir=/#dir=${prefix}#' \
+        "${SNAPCRAFT_STAGE}"/lib/pkgconfig/*.pc
     prime:
       - $files-in-staged-packages
       - $shared-libraries
@@ -334,12 +331,6 @@ parts:
     configflags:
       # WORKAROUND: Resource data path not relocatable
       - --prefix=/snap/$SNAPCRAFT_PROJECT_NAME/current
-
-      - PKG_CONFIG_PATH=$SNAPCRAFT_STAGE/usr/local/lib/pkgconfig:$SNAPCRAFT_STAGE/usr/lib/pkgconfig
-
-      # WORKAROUND: Configure script doesn't set required
-      #             LDFLAGS for custom FFmpeg library
-      - LDFLAGS=-Wl,-rpath-link=$SNAPCRAFT_STAGE/usr/local/lib
 
     build-packages:
       # Ubuntu 16.04 provided FFmpeg is too old
