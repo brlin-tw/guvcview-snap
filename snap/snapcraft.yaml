@@ -34,7 +34,11 @@ description: >
   You can also use guvcview has a control window only, (from console: `guvcview --control_only`), this allows image control on other apps, like ekiga, cheese, mplayer, skype, ...
 
   OPTIONAL SECURITY CONFINEMENT INTERFACES:
-    
+  
+  * Connect the snap to the `hardware-observe` interface if your camera supports H.264 hardware encoding:
+  
+    # snap connect guvcview-brlin:hardware-observe
+  
   * Connect the snap to the `removable-media` interface to allow the application to save file under /media and /run/media:
     
     # snap connect removable-media
