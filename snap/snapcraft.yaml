@@ -271,10 +271,6 @@ parts:
   # https://github.com/diddledan/snapcraft-alsa
   alsa:
     after: [alsa-lib, alsa-plugins]
-
-  alsa-plugins:
-    after: [alsa-lib]
-
   alsa-lib:
     # configflags needed until LP#1766878 is fixed
     configflags:
@@ -293,7 +289,6 @@ parts:
     - --disable-topology
     - --disable-ucm
     - --enable-symbolic-functions
-
   alsa-plugins:
     after: [alsa-lib]
     # configflags needed until LP#1766878 is fixed
