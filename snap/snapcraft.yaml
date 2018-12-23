@@ -114,28 +114,8 @@ parts:
     prime:
     - -patches/
 
-  # Enable ccache by setting up a dependency of this part
-  # and prepend /usr/lib/ccache to the PATH colon-
-  # separated array:
-  #
-  #   PATH=/usr/lib/ccache:"${PATH}"
-  #
-  # NOTE: Currently the above setup can't be applied to
-  #       scriptlets as plugins doesn't honor env. var.
-  #       customizations.
-  #
-  # or passing custom CC CXX definition to the parts'
-  # configure program.
+  # Remote part for speeding up other parts' building
   ccache:
-    plugin: nil
-    build-packages:
-      - ccache
-    # WORKAROUND: Non-snapcraft-generated files are pulled when nil plugin is used - snapcraft - snapcraft.io
-    # https://forum.snapcraft.io/t/non-snapcraft-generated-files-are-pulled-when-nil-plugin-is-used/5913
-    override-pull: 'true'
-    override-build: 'true'
-    override-stage: 'true'
-    override-prime: 'true'
 
   # Custom built ffmpeg libraries for audio/video encoding
   # DOC: CompilationGuide/Ubuntu – FFmpeg
@@ -168,11 +148,6 @@ parts:
 
       - --disable-doc
       - --disable-programs
-
-      # WORKAROUND: snapcraftctl doesn't honor environmental variable
-      # customizations
-      - --cc=ccache gcc
-      - --cxx=ccache g++
 
     build-packages:
       # Base dependencies
@@ -224,16 +199,6 @@ parts:
 
       # OGG/Theora video codec
       - libtheora-dev
-
-    override-build: |
-      set -eu
-
-      # Setup ccache
-      # DISABLED: snapcraftctl doesn't honor environmental variable
-      # customizations
-      # PATH=/usr/lib/ccache:"${PATH}"
-
-      snapcraftctl build
 
     stage-packages:
       - libasyncns0
@@ -369,11 +334,6 @@ parts:
 
       - PKG_CONFIG_PATH=$SNAPCRAFT_STAGE/usr/local/lib/pkgconfig:$SNAPCRAFT_STAGE/usr/lib/pkgconfig
 
-      # WORKAROUND: snapcraftctl doesn't honor environmental variable
-      # customizations
-      - CC=ccache gcc
-      - CXX=ccache g++
-
       # WORKAROUND: Configure script doesn't set required
       #             LDFLAGS for custom FFmpeg library
       - LDFLAGS=-Wl,-rpath-link=$SNAPCRAFT_STAGE/usr/local/lib
@@ -401,14 +361,6 @@ parts:
       - libusb-1.0-0-dev
       - libv4l-dev
       - portaudio19-dev
-    override-build: |
-      set -eu
-
-      # Setup ccache
-      # DISABLED: Environmental variable customization is not honored
-      #PATH=/usr/lib/ccache:"${PATH}"
-
-      snapcraftctl build
 
     stage-packages:
       # Accelerated Renderer support for libSDL2
