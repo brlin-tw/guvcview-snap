@@ -322,11 +322,11 @@ parts:
     - --disable-static
     - LDFLAGS=-L$SNAPCRAFT_STAGE/usr/lib
 
+  desktop-gtk3:
+
   guvcview:
     after:
-      - alsa
       - ccache
-      - desktop-gtk3
       - ffmpeg
       - patches
     source: git://git.code.sf.net/p/guvcview/git-master
