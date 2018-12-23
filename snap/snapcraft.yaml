@@ -77,7 +77,7 @@ apps:
       - removable-media # Non-A-C
 
       # sysfs access
-      # Without this access guvcview will crash on launch
+      # Without this access the "H264 controls" page will be missing for H.264 hardware encoding cameras
       - hardware-observe # Non-A-C
 
       # Audio access
