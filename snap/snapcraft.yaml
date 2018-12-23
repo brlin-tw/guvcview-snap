@@ -1,7 +1,7 @@
 %YAML 1.1
 ---
 name: guvcview-brlin
-version: git
+version: determined-by-version-script
 version-script: |
   set -eu
 
