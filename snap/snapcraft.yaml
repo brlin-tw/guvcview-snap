@@ -41,8 +41,8 @@ description: >
   
   * Connect the snap to the `removable-media` interface to allow the application to save file under /media and /run/media:
     
-    # snap connect removable-media
-    
+    # snap connect guvcview-brlin:removable-media
+
   This package is NOT official, for any problem regarding using the package please refer to:
   
   https://github.com/Lin-Buo-Ren/guvcview-snap/issues
