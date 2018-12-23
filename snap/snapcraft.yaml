@@ -90,7 +90,6 @@ apps:
       # Audio access
       # `alsa` interface is not necessary
       # https://github.com/diddledan/snapcraft-alsa
-      #- alsa # Non-A-C
       - pulseaudio
 
       # For SDL2 hardware acceleration
@@ -286,28 +285,42 @@ parts:
     after: [alsa-lib]
 
   alsa-lib:
-    plugin: autotools
-    source: https://mirrorservice.org/sites/ftp.alsa-project.org/pub/lib/alsa-lib-1.1.6.tar.bz2
+    # configflags needed until LP#1766878 is fixed
     configflags:
-      - --prefix=/usr
-      - --sysconfdir=/etc
-      - --libexec=/usr/lib
-      - --libdir=/usr/lib
-      - --localstatedir=/var
-      - --with-configdir=/snap/$SNAPCRAFT_PROJECT_NAME/current/usr/share/alsa
-      - --with-plugindir=/snap/$SNAPCRAFT_PROJECT_NAME/current/usr/lib/alsa-lib
-      - --disable-alisp
-      - --disable-aload
-      - --disable-python
-      # Requires by ffmpeg part
-      #- --disable-rawmidi
-      - --disable-static
-      - --disable-topology
-      - --disable-ucm
-      - --enable-symbolic-functions
+    - --prefix=/usr
+    - --sysconfdir=/etc
+    - --libexec=/usr/lib
+    - --libdir=/usr/lib
+    - --localstatedir=/var
+    - --with-configdir=/snap/$SNAPCRAFT_PROJECT_NAME/current/usr/share/alsa
+    - --with-plugindir=/snap/$SNAPCRAFT_PROJECT_NAME/current/usr/lib/alsa-lib
+    - --disable-alisp
+    - --disable-aload
+    - --disable-python
+    #- --disable-rawmidi # required by ffmpeg part
+    - --disable-static
+    - --disable-topology
+    - --disable-ucm
+    - --enable-symbolic-functions
 
-      - CC=ccache gcc
-      - CXX=ccache g++
+  alsa-plugins:
+    after: [alsa-lib]
+    # configflags needed until LP#1766878 is fixed
+    configflags:
+    - --prefix=/usr
+    - --sysconfdir=/etc
+    - --libexec=/usr/lib
+    - --libdir=/usr/lib
+    - --localstatedir=/var
+    - --disable-arcamav
+    - --disable-avcodec
+    - --disable-jack
+    - --disable-mix
+    - --disable-oss
+    - --disable-usbstream
+    - --with-plugindir=/snap/$SNAPCRAFT_PROJECT_NAME/current/usr/lib/alsa-lib
+    - --disable-static
+    - LDFLAGS=-L$SNAPCRAFT_STAGE/usr/lib
 
   guvcview:
     after:
@@ -389,6 +402,9 @@ parts:
 
         # Special case for libusb-1.0.so.0
         - lib/x86_64-linux-gnu/*
+
+        # Exclude ALSA files which conflicts with alsa part
+        - -usr/share/alsa/*
       library-headers:
         - include/*
       localizations:
