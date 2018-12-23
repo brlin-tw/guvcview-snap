@@ -32,18 +32,8 @@ description: >
   This package provides a control interface based on Gtk3  A console only option is also available.
     
   You can also use guvcview has a control window only, (from console: `guvcview --control_only`), this allows image control on other apps, like ekiga, cheese, mplayer, skype, ...
-    
-  IMPORTANT INFORMATION REGARDING SECURITY CONFINEMENT:
-    
-  * You are required to connect the snap to the `hardware-observe` interface MANUALLY to avoid crash on launch:
-    
-    # snap connect guvcview:hardware-observe
-    
-  * You are required to connect the snap to the `camera` interface manually to allow the application to access UVC cameras/webcams:
-    
-    # snap connect guvcview:camera
-    
-  OPTIONAL CONNECTABLE INTERFACES:
+
+  OPTIONAL SECURITY CONFINEMENT INTERFACES:
     
   * Connect the snap to the `removable-media` interface to allow the application to save file under /media and /run/media:
     

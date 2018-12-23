@@ -14,9 +14,8 @@ distributions.</p>
 ## Installation
 
     sudo snap install guvcview-brlin
-    sudo snap connect guvcview-brlin:hardware-observe
-    sudo snap connect guvcview-brlin:camera
-    # Optional
+    
+    # For capturing photo and video to `/mnt` or `/media`
     sudo snap connect guvcview-brlin:removable-media
 
 ([Don't have snapd installed?](https://snapcraft.io/docs/core/install))
