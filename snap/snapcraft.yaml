@@ -365,6 +365,10 @@ parts:
       - patches
     source: git://git.code.sf.net/p/guvcview/git-master
     source-depth: 30
+
+    # For stable releases
+    source-tag: v2.0.6
+
     override-pull: |
       set -eu
 
