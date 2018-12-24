@@ -37,11 +37,11 @@ description: >
   
   * Connect the snap to the `hardware-observe` interface if your camera supports H.264 hardware encoding:
   
-    # snap connect guvcview-brlin:hardware-observe
+    # snap connect guvcview:hardware-observe
   
   * Connect the snap to the `removable-media` interface to allow the application to save file under /media and /run/media:
     
-    # snap connect guvcview-brlin:removable-media
+    # snap connect guvcview:removable-media
 
   This package is NOT official, for any problem regarding using the package please refer to:
   
