@@ -367,7 +367,7 @@ parts:
     source-depth: 30
 
     # For stable releases
-    source-tag: v2.0.6
+    #source-tag: v2.0.6
 
     override-pull: |
       set -eu
