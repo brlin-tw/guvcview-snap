@@ -13,10 +13,14 @@ distributions.</p>
 
 ## Installation
 
-    sudo snap install guvcview-brlin
+    # Install the snap package
+    sudo snap install guvcview
     
     # For capturing photo and video to `/mnt` or `/media`
-    sudo snap connect guvcview-brlin:removable-media
+    sudo snap connect guvcview:removable-media
+    
+    # Enable the "H264 Controls" tab, for the webcams that support H.264 hardware encoding
+    sudo snap connect guvcview:hardware-observe
 
 ([Don't have snapd installed?](https://snapcraft.io/docs/core/install))
 
