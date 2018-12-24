@@ -108,6 +108,13 @@ apps:
       guvcview
     desktop: share/applications/guvcview.desktop
 
+  control-panel:
+    command: >
+      desktop-launch
+      alsa-launch
+      guvcview
+      --control_panel
+
 parts:
   # Patches to fix other parts
   patches:
