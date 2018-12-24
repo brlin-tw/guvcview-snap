@@ -107,6 +107,7 @@ apps:
       desktop-launch
       alsa-launch
       guvcview
+      --audio=pulse
     desktop: share/applications/guvcview.desktop
 
   control-panel:
