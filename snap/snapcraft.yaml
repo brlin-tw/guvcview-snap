@@ -88,10 +88,13 @@ apps:
       # For SDL2 hardware acceleration
       - opengl
 
-      # Recommendations from snappy-debug
+      # Recommendations from snappy-debug #
       - gsettings
-      - mount-observe # Non-A-C
       - screen-inhibit-control
+
+      # According to snapd developers this shouldn't be asserted
+      # https://forum.snapcraft.io/t/the-mount-observe-interface/7876/3
+      #- mount-observe # Non-A-C
     desktop: share/applications/guvcview.desktop
 
 parts:
