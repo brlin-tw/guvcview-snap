@@ -65,10 +65,13 @@ plugs:
   desktop-legacy:
 
   # X Window System access
-  x11:
+  #x11: # Covered by unity7 interface
 
   # Unity DE support (e.g. global menu)
   unity7:
+
+  # Wayland support
+  wayland:
 
   # V4L device access
   camera: # Non-A-C
