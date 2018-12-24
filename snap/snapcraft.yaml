@@ -31,7 +31,7 @@ description: >
     
   This package provides a control interface based on Gtk3  A console only option is also available.
     
-  You can also use guvcview has a control window only, (from console: `guvcview --control_only`), this allows image control on other apps, like ekiga, cheese, mplayer, skype, ...
+  You can also use guvcview has a control window only, (from console: `guvcview.control-panel`), this allows image control on other apps, like ekiga, cheese, mplayer, skype, ...
 
   OPTIONAL SECURITY CONFINEMENT INTERFACES:
   
