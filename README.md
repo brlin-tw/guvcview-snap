@@ -37,7 +37,7 @@ distributions.</p>
 * Video recording (including audio)
 
 ## What's Not
-* Gracefully terminate when required plugs are not connected
+Refer the [issue tracker](https://github.com/Lin-Buo-Ren/guvcview-snap/issues) for known issues.
 
 ## Remaining Tasks
 
