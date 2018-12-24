@@ -27,6 +27,18 @@ version-script: |
 
 summary: A simple v4l2 full-featured video grabber
 description: >
+  ## Obsoletion Notice ##
+  This snap has been superseded by the `guvcview` snap and will no longer recieve any updates!  Please remove this snap and install the guvcview snap instead.
+
+      https://snapcraft.io/guvcview
+
+  Your previous recordings at the default location can still be accessed at your home directory/snap/guvcview-brlin/*, and should be relocated as soon as possible just in case.
+
+  If you have any problems refer to the issue tracker:
+
+      https://github.com/Lin-Buo-Ren/guvcview-snap/issues
+
+  ## Original Description ##
   GTK+ UVC Viewer is a simple interface for capturing and viewing video from v4l2 devices, with a special emphasis for the linux uvc driver.
     
   This package provides a control interface based on Gtk3  A console only option is also available.

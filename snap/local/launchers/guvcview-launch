@@ -7,5 +7,22 @@ set \
 	-o nounset \
 	-o pipefail
 
+declare \
+    real_home_dir
+
+real_home_dir="$(
+    getent \
+        passwd \
+        "${USER}" \
+    | cut \
+        --delimiter=: \
+        --fields=6
+)"
+
+zenity \
+        --warning \
+        --text="This snap has now been <b>superseded</b> by the <tt>guvcview</tt> snap and will NOT receive any further updates!  Please remove this snap and install the <tt>guvcview</tt> snap instead.\\n\\n    https://snapcraft.io/guvcview\\n\\nYour previous recordings at the default location can still be accessed at <tt>${real_home_dir}/snap/guvcview-brlin/*</tt>, and should be relocated as soon as possible just in case.\\n\\nIf you have any problems refer to the issue tracker:\\n\\n    https://github.com/Lin-Buo-Ren/guvcview-snap/issues\\n" \
+        --width=600
+
 # Finally run the next part of the command chain
 exec "${@}"
