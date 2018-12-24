@@ -419,7 +419,7 @@ parts:
       - libpulse0
       - libusb-1.0-0
     organize:
-      snap/guvcview-brlin/current/: /
+      snap/$SNAPCRAFT_PROJECT_NAME/current/: /
     filesets:
       appdata:
         - share/appdata/*
