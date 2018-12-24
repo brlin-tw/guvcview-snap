@@ -87,6 +87,7 @@ plugs:
   # Audio access
   # `alsa` interface is not necessary
   # https://github.com/diddledan/snapcraft-alsa
+  #alsa:
   pulseaudio:
 
   # For SDL2 hardware acceleration
