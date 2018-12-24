@@ -8,7 +8,7 @@
 distributions.</p>
 
 <p align="center">
-<a href="https://build.snapcraft.io/user/Lin-Buo-Ren/guvcview"><img src="https://build.snapcraft.io/badge/Lin-Buo-Ren/guvcview.svg" alt="Snap Status"></a>
+<a href="https://build.snapcraft.io/user/Lin-Buo-Ren/guvcview-snap"><img src="https://build.snapcraft.io/badge/Lin-Buo-Ren/guvcview-snap.svg" alt="Snap Status"></a>
 </p>
 
 ## Installation
