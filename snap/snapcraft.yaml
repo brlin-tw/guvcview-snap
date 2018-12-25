@@ -135,8 +135,10 @@ parts:
   launchers:
     source: snap/local/launchers
     plugin: dump
+    stage-packages:
+    - v4l-utils
     organize:
-      '*': bin/
+      '*-launch': bin/
     stage:
     - -bin/README.*
 
