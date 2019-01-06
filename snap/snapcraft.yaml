@@ -170,7 +170,7 @@ parts:
 
     source: git://github.com/FFmpeg/FFmpeg.git
     source-type: git
-    source-tag: release/3.4
+    source-branch: release/3.4
     source-depth: 1
 
     plugin: autotools
