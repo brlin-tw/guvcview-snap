@@ -118,6 +118,7 @@ apps:
       guvcview-launch
       guvcview
       --control_panel
+    desktop: share/applications/guvcview-control-panel.desktop
 
 parts:
   # Patches to fix other parts
@@ -466,13 +467,25 @@ parts:
     override-stage: |
       set -eu
 
+      cp \
+        --force \
+        --verbose \
+        "${SNAPCRAFT_PART_INSTALL}"/share/applications/guvcview.desktop \
+        "${SNAPCRAFT_PART_INSTALL}"/share/applications/guvcview-control-panel.desktop
+
       snapcraftctl stage
 
       # Fixup desktop entry
       sed \
         --in-place \
         --file "${SNAPCRAFT_STAGE}"/patches/postprocess-desktop-entries.sed \
-        "${SNAPCRAFT_STAGE}"/share/applications/guvcview.desktop
+        "${SNAPCRAFT_STAGE}"/share/applications/guvcview.desktop \
+        "${SNAPCRAFT_STAGE}"/share/applications/guvcview-control-panel.desktop
+      sed \
+        --in-place \
+        --file "${SNAPCRAFT_STAGE}"/patches/postprocess-desktop-entries-control-panel.sed \
+        "${SNAPCRAFT_STAGE}"/share/applications/guvcview-control-panel.desktop
+
     prime:
       - $executables
       - $desktop-entries
