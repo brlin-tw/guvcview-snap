@@ -167,7 +167,7 @@ parts:
   # FIXME: Other encoding format support requires enabling
   ffmpeg:
     after:
-      - ccache
+    - ccache
 
     source: git://github.com/FFmpeg/FFmpeg.git
     source-type: git
@@ -176,130 +176,130 @@ parts:
 
     plugin: autotools
     configflags:
-      - --enable-gpl
-      #- --enable-nonfree
+    - --enable-gpl
+    #- --enable-nonfree
 
-      #- --enable-libfdk-aac
-      - --enable-libmp3lame
-      - --enable-libopus
-      - --enable-libtheora
-      - --enable-libvpx
-      - --enable-libx264
-      # --enable-libx265
+    #- --enable-libfdk-aac
+    - --enable-libmp3lame
+    - --enable-libopus
+    - --enable-libtheora
+    - --enable-libvpx
+    - --enable-libx264
+    # --enable-libx265
 
-      - --enable-shared
+    - --enable-shared
 
-      - --disable-doc
-      - --disable-programs
+    - --disable-doc
+    - --disable-programs
 
-      - --prefix=/
+    - --prefix=/
 
     build-packages:
-      # Base dependencies
-      - autoconf
-      - automake
-      - build-essential
-      - cmake
-      - git-core
-      - libass-dev
-      - libfreetype6-dev
-      - libsdl2-dev
-      - libtool
-      - libva-dev
-      - libvdpau-dev
-      - libvorbis-dev
-      - libxcb1-dev
-      - libxcb-shm0-dev
-      - libxcb-xfixes0-dev
-      - pkg-config
-      - texinfo
-      - wget
-      - zlib1g-dev
+    # Base dependencies
+    - autoconf
+    - automake
+    - build-essential
+    - cmake
+    - git-core
+    - libass-dev
+    - libfreetype6-dev
+    - libsdl2-dev
+    - libtool
+    - libva-dev
+    - libvdpau-dev
+    - libvorbis-dev
+    - libxcb1-dev
+    - libxcb-shm0-dev
+    - libxcb-xfixes0-dev
+    - pkg-config
+    - texinfo
+    - wget
+    - zlib1g-dev
 
-      # An assembler used by some libraries
-      - yasm
+    # An assembler used by some libraries
+    - yasm
 
-      # H.264 video encoder
-      - libx264-dev
+    # H.264 video encoder
+    - libx264-dev
 
-      # H.265/HEVC video encoder
-      #- libx265-dev
-      #- libnuma-dev
+    # H.265/HEVC video encoder
+    #- libx265-dev
+    #- libnuma-dev
 
-      # VP8/VP9 video encoder/decoder
-      - libvpx-dev
+    # VP8/VP9 video encoder/decoder
+    - libvpx-dev
 
-      # AAC audio encoder
-      # Incompatible with --enable-gpl
-      #- libfdk-aac-dev
+    # AAC audio encoder
+    # Incompatible with --enable-gpl
+    #- libfdk-aac-dev
 
-      # MP3 audio encoder
-      - libmp3lame-dev
+    # MP3 audio encoder
+    - libmp3lame-dev
 
-      # Opus audio decoder and encoder
-      - libopus-dev
+    # Opus audio decoder and encoder
+    - libopus-dev
 
-      # AV1 video encoder/decoder not provided by Ubuntu 16.04
-      #- libaom-av1-dev(?)
+    # AV1 video encoder/decoder not provided by Ubuntu 16.04
+    #- libaom-av1-dev(?)
 
-      # OGG/Theora video codec
-      - libtheora-dev
+    # OGG/Theora video codec
+    - libtheora-dev
 
     stage-packages:
-      - libasyncns0
-      - libdb5.3
-      - libflac8
-      - libjack-jackd2-0
-      - libmp3lame0
-      - libogg0
-      - libopus0
-      - libpulse0
-      - libsdl2-2.0-0
-      - libsndfile1
-      - libsndio6.1
-      - libtheora0
-      - libva-drm1
-      - libva-x11-1
-      - libva1
-      - libvdpau1
-      - libvorbis0a
-      - libvorbisenc2
-      - libvpx3
-      - libxcb-shape0
-      - libxcb-shm0
-      - libxss1
-      - libxv1
-      - libxxf86vm1
-      - libx264-148
+    - libasyncns0
+    - libdb5.3
+    - libflac8
+    - libjack-jackd2-0
+    - libmp3lame0
+    - libogg0
+    - libopus0
+    - libpulse0
+    - libsdl2-2.0-0
+    - libsndfile1
+    - libsndio6.1
+    - libtheora0
+    - libva-drm1
+    - libva-x11-1
+    - libva1
+    - libvdpau1
+    - libvorbis0a
+    - libvorbisenc2
+    - libvpx3
+    - libxcb-shape0
+    - libxcb-shm0
+    - libxss1
+    - libxv1
+    - libxxf86vm1
+    - libx264-148
 
     filesets:
       examples:
-        - share/ffmpeg/examples/*
+      - share/ffmpeg/examples/*
       executables:
-        - bin/*
+      - bin/*
       files-in-staged-packages:
-        # Avoid staging usr/local
-        - usr/bin
-        - usr/include
-        - usr/lib
-        - usr/share
-        - -usr/share/alsa/*
+      # Avoid staging usr/local
+      - usr/bin
+      - usr/include
+      - usr/lib
+      - usr/share
+      - -usr/share/alsa/*
       library-headers:
-        - include/*
+      - include/*
       manpages:
-        - share/man/*
+      - share/man/*
       pkg-config:
-        - lib/pkgconfig/*
+      - lib/pkgconfig/*
       shared-libraries:
-        - lib/*.so*
+      - lib/*.so*
       static-libraries:
-        - lib/*.a
+      - lib/*.a
     stage:
-      - $files-in-staged-packages
-      - $library-headers
-      - $pkg-config
-      - $shared-libraries
-      - $static-libraries
+    - $files-in-staged-packages
+    - $library-headers
+    - $pkg-config
+    - $shared-libraries
+    - $static-libraries
     override-stage: |
       set -eu
 
@@ -312,8 +312,8 @@ parts:
         's#dir=/#dir=${prefix}#' \
         "${SNAPCRAFT_STAGE}"/lib/pkgconfig/*.pc
     prime:
-      - $files-in-staged-packages
-      - $shared-libraries
+    - $files-in-staged-packages
+    - $shared-libraries
 
   # ALSA part for snapcraft, which will compile ALSA and install a
   # loader script which redirects audio through pulseaudio without
@@ -363,9 +363,9 @@ parts:
 
   guvcview:
     after:
-      - ccache
-      - ffmpeg
-      - patches
+    - ccache
+    - ffmpeg
+    - patches
     source: git://git.code.sf.net/p/guvcview/git-master
     source-depth: 30
 
@@ -383,87 +383,87 @@ parts:
 
     plugin: autotools
     configflags:
-      # WORKAROUND: Resource data path not relocatable
-      - --prefix=/snap/$SNAPCRAFT_PROJECT_NAME/current
+    # WORKAROUND: Resource data path not relocatable
+    - --prefix=/snap/$SNAPCRAFT_PROJECT_NAME/current
 
     build-packages:
-      # Ubuntu 16.04 provided FFmpeg is too old
-      # Replaced by `ffmpeg` remote part
-      #- libavcodec-dev
-      #- libavutil-dev
+    # Ubuntu 16.04 provided FFmpeg is too old
+    # Replaced by `ffmpeg` remote part
+    #- libavcodec-dev
+    #- libavutil-dev
 
-      # DISABLED: Requires manual patching, replaced by alsa-lib part
-      # https://forum.snapcraft.io/t/reusable-alsa-lib-part/3556
-      #- libasound2
+    # DISABLED: Requires manual patching, replaced by alsa-lib part
+    # https://forum.snapcraft.io/t/reusable-alsa-lib-part/3556
+    #- libasound2
 
-      - autoconf
-      - automake
-      - intltool
-      - libglib2.0-dev
-      - libgsl-dev
-      - libgtk-3-dev
-      - libpng12-dev
-      - libsdl2-dev
-      - libtool
-      - libudev-dev
-      - libusb-1.0-0-dev
-      - libv4l-dev
-      - portaudio19-dev
+    - autoconf
+    - automake
+    - intltool
+    - libglib2.0-dev
+    - libgsl-dev
+    - libgtk-3-dev
+    - libpng12-dev
+    - libsdl2-dev
+    - libtool
+    - libudev-dev
+    - libusb-1.0-0-dev
+    - libv4l-dev
+    - portaudio19-dev
 
     stage-packages:
-      # Accelerated Renderer support for libSDL2
-      - libglu1-mesa
-      - libgl1-mesa-dri
+    # Accelerated Renderer support for libSDL2
+    - libglu1-mesa
+    - libgl1-mesa-dri
 
-      - libv4l-0
-      - libv4lconvert0
-      - libgsl2
-      - libportaudio2
-      - libpulse0
-      - libusb-1.0-0
+    - libv4l-0
+    - libv4lconvert0
+    - libgsl2
+    - libportaudio2
+    - libpulse0
+    - libusb-1.0-0
     organize:
       snap/$SNAPCRAFT_PROJECT_NAME/current/: /
     filesets:
       appdata:
-        - share/appdata/*
+      - share/appdata/*
       desktop-entries:
-        - share/applications/*
+      - share/applications/*
       documentations:
-        - share/doc/*
+      - share/doc/*
       executables:
-        - bin/*
+      - bin/*
       files-from-stage-packages:
-        - usr/*
+      - usr/*
 
-        # Special case for libusb-1.0.so.0
-        - lib/x86_64-linux-gnu/*
+      # Special case for libusb-1.0.so.0
+      - lib/x86_64-linux-gnu/*
 
-        # Exclude ALSA files which conflicts with alsa part
-        - -usr/share/alsa/*
+      # Exclude ALSA files which conflicts with alsa part
+      - -usr/share/alsa/*
       library-headers:
-        - include/*
+      - include/*
       localizations:
-        - share/locale/*
+      - share/locale/*
       manpages:
-        - share/man/*
+      - share/man/*
       pixmaps:
-        - share/pixmaps/*
+      - share/pixmaps/*
       pkgconfig:
-        - lib/pkgconfig/*
+      - lib/pkgconfig/*
       shared-libraries:
-        - lib/*.so*
+      - lib/*.so*
       static-libraries:
-        - lib/*.a
+      - lib/*.a
     stage:
-      - $executables
-      - $desktop-entries
-      - $files-from-stage-packages
-      - $library-headers
-      - $localizations
-      - $manpages
-      - $pkgconfig
-      - $pixmaps
-      - $shared-libraries
+    - $executables
+    - $desktop-entries
+    - $files-from-stage-packages
+    - $library-headers
+    - $localizations
+    - $manpages
+    - $pkgconfig
+    - $pixmaps
+    - $shared-libraries
     override-stage: |
       set -eu
 
@@ -487,10 +487,10 @@ parts:
         "${SNAPCRAFT_STAGE}"/share/applications/guvcview-control-panel.desktop
 
     prime:
-      - $executables
-      - $desktop-entries
-      - $files-from-stage-packages
-      - $localizations
-      - $manpages
-      - $pixmaps
-      - $shared-libraries
+    - $executables
+    - $desktop-entries
+    - $files-from-stage-packages
+    - $localizations
+    - $manpages
+    - $pixmaps
+    - $shared-libraries
