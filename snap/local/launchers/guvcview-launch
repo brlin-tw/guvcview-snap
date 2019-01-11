@@ -12,7 +12,7 @@ set \
 if ! ls /etc/sensors.d &>/dev/null; then
     zenity \
         --warning \
-        --text="It seems that this snap isn't connected to the <tt>hardware-observe</tt> security confinement interface.  The application requires this access and as a result some functionalities may not work(including but not limited to, the H264 Controls tab.\n\nYou can connect this interface by running the following command in a terminal:\\n\\n    sudo snap connect ${SNAP_NAME}:hardware-observe\\n\\n" \
+        --text="It seems that this snap isn't connected to the <tt>hardware-observe</tt> security confinement interface.  The application requires this access and as a result some functionalities may not work(including but not limited to, the H264 Controls tab).\n\nYou can connect this interface by running the following command in a terminal:\\n\\n    sudo snap connect ${SNAP_NAME}:hardware-observe\\n\\n" \
         --width=600
 fi
 
