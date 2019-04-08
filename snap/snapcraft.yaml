@@ -361,7 +361,7 @@ parts:
     #source-tag: v2.0.6
 
     override-pull: |
-      set -u
+      set -o nounset
 
       snapcraftctl pull
 
