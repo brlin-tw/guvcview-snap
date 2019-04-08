@@ -1,30 +1,6 @@
 %YAML 1.1
 ---
 name: guvcview
-version: determined-by-version-script
-version-script: |
-  set -eu
-
-  upstream_version="$(
-    git \
-      -C parts/guvcview/src \
-      describe \
-      --always \
-      --dirty=-d \
-      --tags \
-    | sed s/^v//
-  )"
-
-  packaging_revision="$(
-    git \
-      describe \
-      --abbrev=4 \
-      --always \
-      --dirty=-d
-  )"
-
-  printf -- '%s' "${upstream_version}+pkg-${packaging_revision}"
-
 summary: A simple v4l2 full-featured video grabber
 description: >
   GTK+ UVC Viewer is a simple interface for capturing and viewing video from v4l2 devices, with a special emphasis for the linux uvc driver.
@@ -349,11 +325,21 @@ parts:
 
   desktop-gtk3:
 
+  selective-checkout:
+    plugin: nil
+    build-packages:
+    - git
+    stage-snaps:
+    - selective-checkout
+    prime:
+    - -*
+
   guvcview:
     after:
     - ccache
     - ffmpeg
     - patches
+    - selective-checkout
     source: git://git.code.sf.net/p/guvcview/git-master
     source-depth: 30
 
@@ -364,6 +350,8 @@ parts:
       set -o nounset
 
       snapcraftctl pull
+      "${SNAPCRAFT_STAGE}"/scriptlets/selective-checkout \
+        --append-packaging-revision
 
       patch \
         --strip=1 \
