@@ -34,11 +34,7 @@ description: >
   You can also use guvcview has a control window only, (from console: `guvcview.control-panel`), this allows image control on other apps, like ekiga, cheese, mplayer, skype, ...
 
   OPTIONAL SECURITY CONFINEMENT INTERFACES:
-  
-  * Connect the snap to the `hardware-observe` interface if your camera supports H.264 hardware encoding:
-  
-    # snap connect guvcview:hardware-observe
-  
+
   * Connect the snap to the `removable-media` interface to allow the application to save file under /media and /run/media:
     
     # snap connect guvcview:removable-media
@@ -79,10 +75,6 @@ plugs:
   # Storage access
   home:
   removable-media: # Non-A-C
-
-  # sysfs access
-  # Without this access the "H264 controls" page will be missing for H.264 hardware encoding cameras
-  hardware-observe: # Non-A-C
 
   # Audio access
   # `alsa` interface is not necessary
