@@ -89,10 +89,6 @@ plugs:
   gsettings:
   screen-inhibit-control:
 
-  # According to snapd developers this shouldn't be asserted
-  # https://forum.snapcraft.io/t/the-mount-observe-interface/7876/3
-  #mount-observe: # Non-A-C
-
 apps:
   guvcview:
     command: >
