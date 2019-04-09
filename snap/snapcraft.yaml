@@ -1,6 +1,7 @@
 %YAML 1.1
 ---
 name: guvcview
+title: GTK+ UVC Viewer (UNOFFICIAL)
 summary: A simple v4l2 full-featured video grabber
 description: >
   GTK+ UVC Viewer is a simple interface for capturing and viewing video from v4l2 devices, with a special emphasis for the linux uvc driver.
@@ -18,16 +19,18 @@ description: >
   This package is NOT official, for any problem regarding using the package please refer to:
   
   https://github.com/Lin-Buo-Ren/guvcview-snap/issues
+
+icon: snap/gui/guvcview.png
+license: GPL-3.0
+
+adopt-info: guvcview
+assumes:
+# `full` adapter
+- snapd2.36
+
+base: core18
 confinement: strict
 grade: stable
-icon: snap/gui/guvcview.png
-architectures:
-- build-on: i386
-- build-on: amd64
-- build-on: armhf
-- build-on: arm64
-- build-on: s390x
-#- build-on: ppc64el # FTBFS in alsa part: https://github.com/Lin-Buo-Ren/guvcview-snap/issues/6
 
 plugs:
   # Basic graphical resources
@@ -48,14 +51,30 @@ plugs:
   # V4L device access
   camera: # Non-A-C
 
+  # GNOME and Gtk runtime via content sharing
+  gnome-3-28-1804:
+    interface: content
+    target: $SNAP/gnome-platform
+    default-provider: gnome-3-28-1804
+  gtk-3-themes:
+    interface: content
+    target: $SNAP/data-dir/themes
+    default-provider: gtk-common-themes
+  icon-themes:
+    interface: content
+    target: $SNAP/data-dir/icons
+    default-provider: gtk-common-themes
+  sound-themes:
+    interface: content
+    target: $SNAP/data-dir/sounds
+    default-provider: gtk-common-themes
+
   # Storage access
   home:
   removable-media: # Non-A-C
 
   # Audio access
-  # `alsa` interface is not necessary
-  # https://github.com/diddledan/snapcraft-alsa
-  #alsa:
+  alsa:
   pulseaudio:
 
   # For SDL2 hardware acceleration
@@ -65,36 +84,40 @@ plugs:
   gsettings:
   screen-inhibit-control:
 
+  # Unknown, related with H264 panel
+  hardware-observe:
+
 apps:
   guvcview:
-    command: >
-      desktop-launch
-      alsa-launch
-      guvcview-launch
-      guvcview
-      --audio=pulse
-    desktop: share/applications/guvcview.desktop
+    adapter: full
+    # WORKAROUND: Snapcraft impose too much restrictions to the command format
+    # https://bugs.launchpad.net/snapcraft/+bug/1820055
+    command: bin/guvcview-launch
+    command-chain:
+    - bin/desktop-launch
+    desktop: usr/share/applications/guvcview.desktop
+    environment:
+      # Fix ALSA
+      ALSA_CONFIG_PATH: /snap/$SNAPCRAFT_PROJECT_NAME/current/usr/share/alsa/alsa.conf
 
   control-panel:
-    command: >
-      desktop-launch
-      alsa-launch
-      guvcview-launch
-      guvcview
-      --control_panel
-    desktop: share/applications/guvcview-control-panel.desktop
+    adapter: full
+    # WORKAROUND: Snapcraft impose too much restrictions to the command format
+    # https://bugs.launchpad.net/snapcraft/+bug/1820055
+    command: bin/guvcview.control_panel-launch
+    command-chain:
+    - bin/desktop-launch
+    desktop: usr/share/applications/guvcview-control-panel.desktop
 
 parts:
-  # Patches to fix other parts
-  patches:
-    source: snap/local/patches
+  # Files to patch the files in the snap
+  patching:
+    source: snap/local/patching
     plugin: dump
-
     organize:
-      '*': patches/
-
+      '*': patching/
     prime:
-    - -patches/
+    - -*
 
   # Launcher programs to fix problems at runtime
   launchers:
@@ -107,224 +130,105 @@ parts:
     stage:
     - -bin/README.*
 
-  # Optional auxiliary part for displaying simple dialogs for better user experience, powered by Zenity
-  # https://forum.snapcraft.io/t/the-zenity-remote-part/8793
+  # Integrate custom dialogs in your snap - doc - snapcraft.io
+  # https://forum.snapcraft.io/t/integrate-custom-dialogs-in-your-snap/10825
   zenity:
-    # This part or part recipe is needed until LP#1766878 is fixed
-    #
-    # Bug #1766878 “$SNAPCRAFT_PROJECT_NAME used in a remote part expands to wrong value” : Bugs : Snapcraft
-    # https://bugs.launchpad.net/snapcraft/+bug/1766878
-    configflags:
-    - --datarootdir=/snap/$SNAPCRAFT_PROJECT_NAME/current/share
-    - --disable-libnotify
-    - --disable-webkitgtk
-    organize:
-      snap/$SNAPCRAFT_PROJECT_NAME/current: /
-
-  # Remote part for speeding up other parts' building
-  ccache:
-
-  # Custom built ffmpeg libraries for audio/video encoding
-  # DOC: CompilationGuide/Ubuntu – FFmpeg
-  #      https://trac.ffmpeg.org/wiki/CompilationGuide/Ubuntu
-  # NOTE: Only components that is compatible with GPL can be enabled!
-  # FIXME: Other encoding format support requires enabling
-  ffmpeg:
-    after:
-    - ccache
-
-    source: git://github.com/FFmpeg/FFmpeg.git
-    source-type: git
-    source-branch: release/3.4
-    source-depth: 1
-
-    plugin: autotools
-    configflags:
-    - --enable-gpl
-    #- --enable-nonfree
-
-    #- --enable-libfdk-aac
-    - --enable-libmp3lame
-    - --enable-libopus
-    - --enable-libtheora
-    - --enable-libvpx
-    - --enable-libx264
-    # --enable-libx265
-
-    - --enable-shared
-
-    - --disable-doc
-    - --disable-programs
-
-    - --prefix=/
-
-    build-packages:
-    # Base dependencies
-    - autoconf
-    - automake
-    - build-essential
-    - cmake
-    - git-core
-    - libass-dev
-    - libfreetype6-dev
-    - libsdl2-dev
-    - libtool
-    - libva-dev
-    - libvdpau-dev
-    - libvorbis-dev
-    - libxcb1-dev
-    - libxcb-shm0-dev
-    - libxcb-xfixes0-dev
-    - pkg-config
-    - texinfo
-    - wget
-    - zlib1g-dev
-
-    # An assembler used by some libraries
-    - yasm
-
-    # H.264 video encoder
-    - libx264-dev
-
-    # H.265/HEVC video encoder
-    #- libx265-dev
-    #- libnuma-dev
-
-    # VP8/VP9 video encoder/decoder
-    - libvpx-dev
-
-    # AAC audio encoder
-    # Incompatible with --enable-gpl
-    #- libfdk-aac-dev
-
-    # MP3 audio encoder
-    - libmp3lame-dev
-
-    # Opus audio decoder and encoder
-    - libopus-dev
-
-    # AV1 video encoder/decoder not provided by Ubuntu 16.04
-    #- libaom-av1-dev(?)
-
-    # OGG/Theora video codec
-    - libtheora-dev
-
+    plugin: nil
     stage-packages:
-    - libasyncns0
-    - libdb5.3
-    - libflac8
-    - libjack-jackd2-0
+    - zenity
+
+  # Speeding up packaging development iteration by using compiler cache
+  # https://forum.snapcraft.io/t/the-ccache-build-snap/10820
+  ccache:
+    plugin: nil
+    build-snaps:
+    - ccache/latest/edge
+    prime:
+    - -*
+
+  # Prebuilt upstream FFmpeg for integration
+  # https://forum.snapcraft.io/t/the-ffmpeg-sdk-stage-snaps/10818
+  ffmpeg-sdk:
+    plugin: nil
+    stage-snaps:
+    - ffmpeg-sdk-gplv3
+    stage-packages:
+    ### Dynamic-linking safe dependencies
+    - libasound2
+    - libass9
+    - libbluray2
+    - libbs2b0
+    - libcaca0
+    - libdrm2
+    - libfontconfig1
+    - libfribidi0
+    - libgmp10
+    - libgraphite2-3
+    - libharfbuzz0b
     - libmp3lame0
+    - try:
+      - libnuma1
     - libogg0
+    - libopencore-amrnb0
+    - libopencore-amrwb0
     - libopus0
-    - libpulse0
-    - libsdl2-2.0-0
-    - libsndfile1
-    - libsndio6.1
+    - libslang2
     - libtheora0
-    - libva-drm1
-    - libva-x11-1
-    - libva1
+    - libva-drm2
+    - libva-x11-2
+    - libva2
     - libvdpau1
+    - libvo-amrwbenc0
     - libvorbis0a
     - libvorbisenc2
-    - libvpx3
+    - libvpx5
+    - libx11-6
+    - libxau6
     - libxcb-shape0
     - libxcb-shm0
-    - libxss1
-    - libxv1
-    - libxxf86vm1
-    - libx264-148
+    - libxcb-xfixes0
+    - libxdmcp6
+    - libxext6
+    - libxfixes3
+
+    ### GPL dependencies
+    - libcdio-cdda2
+    - libcdio-paranoia2
+    - libcdio17
+    - libfftw3-double3
+    - librubberband2
+    - libsamplerate0
+    - libx264-152
+    - libx265-146
+    - libxvidcore4
+
+    ### GPLv3 dependencies
+    - libsmbclient
 
     filesets:
-      examples:
-      - share/ffmpeg/examples/*
-      executables:
-      - bin/*
-      files-in-staged-packages:
-      # Avoid staging usr/local
-      - usr/bin
-      - usr/include
-      - usr/lib
-      - usr/share
-      - -usr/share/alsa/*
-      library-headers:
-      - include/*
-      manpages:
-      - share/man/*
-      pkg-config:
-      - lib/pkgconfig/*
-      shared-libraries:
-      - lib/*.so*
-      static-libraries:
-      - lib/*.a
-    stage:
-    - $files-in-staged-packages
-    - $library-headers
-    - $pkg-config
-    - $shared-libraries
-    - $static-libraries
-    override-stage: |
-      set -eu
+      library-shared:
+      - '**/lib/**/*.so*'
 
-      snapcraftctl stage
-
-      # PATCH: ffmpeg's libdir and includedir isn't
-      #        depend on ${prefix}
-      sed \
-        --in-place \
-        's#dir=/#dir=${prefix}#' \
-        "${SNAPCRAFT_STAGE}"/lib/pkgconfig/*.pc
     prime:
-    - $files-in-staged-packages
-    - $shared-libraries
+    - $library-shared
 
-  # ALSA part for snapcraft, which will compile ALSA and install a
-  # loader script which redirects audio through pulseaudio without
-  # requiring the `alsa` plug to be connected manually or by store
-  # assertion.
-  # https://github.com/diddledan/snapcraft-alsa
-  alsa:
-    after: [alsa-lib, alsa-plugins]
-  alsa-lib:
-    # configflags needed until LP#1766878 is fixed
-    configflags:
-    - --prefix=/usr
-    - --sysconfdir=/etc
-    - --libexec=/usr/lib
-    - --libdir=/usr/lib
-    - --localstatedir=/var
-    - --with-configdir=/snap/$SNAPCRAFT_PROJECT_NAME/current/usr/share/alsa
-    - --with-plugindir=/snap/$SNAPCRAFT_PROJECT_NAME/current/usr/lib/alsa-lib
-    - --disable-alisp
-    - --disable-aload
-    - --disable-python
-    #- --disable-rawmidi # required by ffmpeg part
-    - --disable-static
-    - --disable-topology
-    - --disable-ucm
-    - --enable-symbolic-functions
-  alsa-plugins:
-    after: [alsa-lib]
-    # configflags needed until LP#1766878 is fixed
-    configflags:
-    - --prefix=/usr
-    - --sysconfdir=/etc
-    - --libexec=/usr/lib
-    - --libdir=/usr/lib
-    - --localstatedir=/var
-    - --disable-arcamav
-    - --disable-avcodec
-    - --disable-jack
-    - --disable-mix
-    - --disable-oss
-    - --disable-usbstream
-    - --with-plugindir=/snap/$SNAPCRAFT_PROJECT_NAME/current/usr/lib/alsa-lib
-    - --disable-static
-    - LDFLAGS=-L$SNAPCRAFT_STAGE/usr/lib
+  # Remote part for support of various desktop technologies
+  # Refer: https://github.com/ubuntu/snapcraft-desktop-helpers/blob/master/snapcraft.yaml
+  desktop-gnome-platform:
+    source: https://github.com/ubuntu/snapcraft-desktop-helpers.git
+    source-depth: 1
+    source-subdir: gtk
 
-  desktop-gtk3:
+    plugin: make
+    build-packages:
+    - build-essential
+    - libgtk-3-dev
+    override-build: |
+      snapcraftctl build
+      mkdir -pv $SNAPCRAFT_PART_INSTALL/gnome-platform
 
+  # Scriptlet to check out the tagged release revision if it isn't promoted to the stable channel
+  # https://forum.snapcraft.io/t/selective-checkout-check-out-the-tagged-release-revision-if-it-isnt-promoted-to-the-stable-channel/10617
   selective-checkout:
     plugin: nil
     build-packages:
@@ -337,8 +241,8 @@ parts:
   guvcview:
     after:
     - ccache
-    - ffmpeg
-    - patches
+    - ffmpeg-sdk
+    - patching
     - selective-checkout
     source: git://git.code.sf.net/p/guvcview/git-master
     source-depth: 30
@@ -355,22 +259,26 @@ parts:
 
       patch \
         --strip=1 \
-        < "${SNAPCRAFT_STAGE}"/patches/guvcview-fix-missing-c-locale-definitions.patch
+        < "${SNAPCRAFT_STAGE}"/patching/guvcview-fix-missing-c-locale-definitions.patch
 
     plugin: autotools
     configflags:
-    # WORKAROUND: Resource data path not relocatable
-    - --prefix=/snap/$SNAPCRAFT_PROJECT_NAME/current
+    # WORKAROUND: 
+    # guvcview's resource data path not relocatable, we set prefix to /usr
+    # so that the existing /usr/share tree in Ubuntu Core can be used to
+    # set up layouts.
+    - --prefix=/usr
+
+    # Speed up snap building by using ccache
+    - CC=ccache gcc
+    - CXX=ccache g++
 
     build-packages:
-    # Ubuntu 16.04 provided FFmpeg is too old
-    # Replaced by `ffmpeg` remote part
+    # Replaced by `ffmpeg` part
     #- libavcodec-dev
     #- libavutil-dev
 
-    # DISABLED: Requires manual patching, replaced by alsa-lib part
-    # https://forum.snapcraft.io/t/reusable-alsa-lib-part/3556
-    #- libasound2
+    - libasound2
 
     - autoconf
     - automake
@@ -378,7 +286,7 @@ parts:
     - libglib2.0-dev
     - libgsl-dev
     - libgtk-3-dev
-    - libpng12-dev
+    - libpng-dev
     - libsdl2-dev
     - libtool
     - libudev-dev
@@ -393,19 +301,19 @@ parts:
 
     - libv4l-0
     - libv4lconvert0
-    - libgsl2
+    - libgsl23
     - libportaudio2
     - libpulse0
+    - libsdl2-2.0-0
     - libusb-1.0-0
-    organize:
-      snap/$SNAPCRAFT_PROJECT_NAME/current/: /
+
     filesets:
       appdata:
-      - share/appdata/*
+      - usr/share/appdata/*
       desktop-entries:
-      - share/applications/*
+      - usr/share/applications/*
       documentations:
-      - share/doc/*
+      - usr/share/doc/*
       executables:
       - bin/*
       files-from-stage-packages:
@@ -414,22 +322,20 @@ parts:
       # Special case for libusb-1.0.so.0
       - lib/x86_64-linux-gnu/*
 
-      # Exclude ALSA files which conflicts with alsa part
-      - -usr/share/alsa/*
       library-headers:
-      - include/*
+      - usr/include/*
       localizations:
-      - share/locale/*
+      - usr/share/locale/*
       manpages:
-      - share/man/*
+      - usr/share/man/*
       pixmaps:
-      - share/pixmaps/*
+      - usr/share/pixmaps/*
       pkgconfig:
-      - lib/pkgconfig/*
+      - usr/lib/pkgconfig/*
       shared-libraries:
-      - lib/*.so*
+      - usr/lib/*.so*
       static-libraries:
-      - lib/*.a
+      - usr/lib/*.a
     stage:
     - $executables
     - $desktop-entries
@@ -440,27 +346,23 @@ parts:
     - $pkgconfig
     - $pixmaps
     - $shared-libraries
-    override-stage: |
-      set -eu
+    override-prime: |
+      set -o nounset
+
+      snapcraftctl prime
 
       cp \
         --force \
         --verbose \
-        "${SNAPCRAFT_PART_INSTALL}"/share/applications/guvcview.desktop \
-        "${SNAPCRAFT_PART_INSTALL}"/share/applications/guvcview-control-panel.desktop
-
-      snapcraftctl stage
+        usr/share/applications/guvcview.desktop \
+        usr/share/applications/guvcview-control-panel.desktop
 
       # Fixup desktop entry
       sed \
         --in-place \
-        --file "${SNAPCRAFT_STAGE}"/patches/postprocess-desktop-entries.sed \
-        "${SNAPCRAFT_STAGE}"/share/applications/guvcview.desktop \
-        "${SNAPCRAFT_STAGE}"/share/applications/guvcview-control-panel.desktop
-      sed \
-        --in-place \
-        --file "${SNAPCRAFT_STAGE}"/patches/postprocess-desktop-entries-control-panel.sed \
-        "${SNAPCRAFT_STAGE}"/share/applications/guvcview-control-panel.desktop
+        --file "${SNAPCRAFT_STAGE}"/patching/patch-desktop-entries-control-panel.sed \
+        usr/share/applications/guvcview-control-panel.desktop
+      "${SNAPCRAFT_STAGE}"/patching/patch-desktop-entries.bash
 
     prime:
     - $executables
@@ -470,3 +372,12 @@ parts:
     - $manpages
     - $pixmaps
     - $shared-libraries
+
+layout:
+  # Fix resource relocation problem of zenity part
+  /usr/share/zenity:
+    symlink: $SNAP/usr/share/zenity
+
+  # Fix missing icon of guvcview
+  /usr/share/pixmaps/guvcview:
+    symlink: $SNAP/usr/share/pixmaps/guvcview

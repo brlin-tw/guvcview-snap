@@ -7,15 +7,6 @@ set \
 	-o nounset \
 	-o pipefail
 
-# Interface connection detection #
-# FIXME: https://bugs.launchpad.net/snapd/+bug/1809708
-if ! ls /media &>/dev/null; then
-    zenity \
-        --info \
-        --text="It seems that this snap isn't connected to the <tt>removable-media</tt> security confinement interface.  If you want to save the recordings under <tt>/media</tt>, <tt>/run/media</tt>, or <tt>/mnt</tt> you may want to connect this interface by running the following command in a terminal:\\n\\n    sudo snap connect ${SNAP_NAME}:removable-media\\n\\n" \
-        --width=600
-fi
-
 if ls /dev/video* &>/dev/null; then
     # camera available, check if we can open it
     if ! v4l2-ctl --list-devices; then
@@ -32,4 +23,4 @@ fi
 
 # Finally run the next part of the command chain
 #exec "${@}"
-exec guvcview --audio=pulse "${@}"
+exec guvcview --control_panel "${@}"
