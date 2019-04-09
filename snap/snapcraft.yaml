@@ -87,28 +87,6 @@ plugs:
   # Unknown, related with H264 panel
   hardware-observe:
 
-apps:
-  guvcview:
-    adapter: full
-    # WORKAROUND: Snapcraft impose too much restrictions to the command format
-    # https://bugs.launchpad.net/snapcraft/+bug/1820055
-    command: bin/guvcview-launch
-    command-chain:
-    - bin/desktop-launch
-    desktop: usr/share/applications/guvcview.desktop
-    environment:
-      # Fix ALSA
-      ALSA_CONFIG_PATH: /snap/$SNAPCRAFT_PROJECT_NAME/current/usr/share/alsa/alsa.conf
-
-  control-panel:
-    adapter: full
-    # WORKAROUND: Snapcraft impose too much restrictions to the command format
-    # https://bugs.launchpad.net/snapcraft/+bug/1820055
-    command: bin/guvcview.control_panel-launch
-    command-chain:
-    - bin/desktop-launch
-    desktop: usr/share/applications/guvcview-control-panel.desktop
-
 parts:
   # Files to patch the files in the snap
   patching:
@@ -372,6 +350,28 @@ parts:
     - $manpages
     - $pixmaps
     - $shared-libraries
+
+apps:
+  guvcview:
+    adapter: full
+    # WORKAROUND: Snapcraft impose too much restrictions to the command format
+    # https://bugs.launchpad.net/snapcraft/+bug/1820055
+    command: bin/guvcview-launch
+    command-chain:
+    - bin/desktop-launch
+    desktop: usr/share/applications/guvcview.desktop
+    environment:
+      # Fix ALSA
+      ALSA_CONFIG_PATH: /snap/$SNAPCRAFT_PROJECT_NAME/current/usr/share/alsa/alsa.conf
+
+  control-panel:
+    adapter: full
+    # WORKAROUND: Snapcraft impose too much restrictions to the command format
+    # https://bugs.launchpad.net/snapcraft/+bug/1820055
+    command: bin/guvcview.control_panel-launch
+    command-chain:
+    - bin/desktop-launch
+    desktop: usr/share/applications/guvcview-control-panel.desktop
 
 layout:
   # Fix resource relocation problem of zenity part
