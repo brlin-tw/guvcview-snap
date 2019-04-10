@@ -59,6 +59,23 @@ parts:
     plugin: nil
     stage-packages:
     - zenity
+    filesets:
+      docs-debian:
+      - usr/share/doc/zenity*/*
+      docs-gnome-help:
+      - usr/share/help/*/zenity/*
+      docs-manpages:
+      - usr/share/man/*/zenity*
+      executables:
+      - usr/bin/zenity
+      library-shared:
+      - lib/**/*.so*
+      - usr/lib/**/*.so*
+      runtime-resources:
+      - usr/share/zenity/*
+    stage:
+    - $executables
+    - $runtime-resources
 
   # Speeding up packaging development iteration by using compiler cache
   # https://forum.snapcraft.io/t/the-ccache-build-snap/10820
