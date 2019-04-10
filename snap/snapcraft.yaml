@@ -62,12 +62,12 @@ parts:
 
   # Speeding up packaging development iteration by using compiler cache
   # https://forum.snapcraft.io/t/the-ccache-build-snap/10820
-  ccache:
-    plugin: nil
-    build-snaps:
-    - ccache/latest/edge
-    prime:
-    - -*
+  #ccache:
+    #plugin: nil
+    #build-snaps:
+    #- ccache/latest/edge
+    #prime:
+    #- -*
 
   # Prebuilt upstream FFmpeg for integration
   # https://forum.snapcraft.io/t/the-ffmpeg-sdk-stage-snaps/10818
@@ -163,7 +163,7 @@ parts:
 
   guvcview:
     after:
-    - ccache
+    #- ccache
     - ffmpeg-sdk
     - patching
     - selective-checkout
@@ -193,8 +193,8 @@ parts:
     - --prefix=/usr
 
     # Speed up snap building by using ccache
-    - CC=ccache gcc
-    - CXX=ccache g++
+    #- CC=ccache gcc
+    #- CXX=ccache g++
 
     build-packages:
     # Replaced by `ffmpeg` part
