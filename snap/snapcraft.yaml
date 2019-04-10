@@ -238,12 +238,11 @@ parts:
       documentations:
       - usr/share/doc/*
       executables:
-      - bin/*
-      files-from-stage-packages:
-      - usr/*
+      - usr/bin/*
 
-      # Special case for libusb-1.0.so.0
-      - lib/x86_64-linux-gnu/*
+      # Special case for x11-common package
+      # https://bugs.launchpad.net/snapcraft/+bug/1824077
+      - -usr/bin/X11
 
       library-headers:
       - usr/include/*
@@ -256,13 +255,13 @@ parts:
       pkgconfig:
       - usr/lib/pkgconfig/*
       shared-libraries:
-      - usr/lib/*.so*
+      - usr/lib/**/*.so*
+      - lib/**/*.so*
       static-libraries:
       - usr/lib/*.a
     stage:
     - $executables
     - $desktop-entries
-    - $files-from-stage-packages
     - $library-headers
     - $localizations
     - $manpages
@@ -290,7 +289,6 @@ parts:
     prime:
     - $executables
     - $desktop-entries
-    - $files-from-stage-packages
     - $localizations
     - $manpages
     - $pixmaps
