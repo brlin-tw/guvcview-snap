@@ -29,6 +29,11 @@ else
     :
 fi
 
+# Use user's real home directory for canonical configuration path access
+# HOME="$(
+#     getent passwd "${USER}" \
+#         | cut --delimiter=: --fields=6
+# )"
 
 # Finally run the next part of the command chain
 #exec "${@}"

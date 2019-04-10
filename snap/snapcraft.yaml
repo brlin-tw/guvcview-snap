@@ -363,6 +363,15 @@ plugs:
   # For SDL2 hardware acceleration
   opengl:
 
+  # Canonical config path access
+  # https://forum.snapcraft.io/t/the-personal-files-interface/9357
+  # FIXME: Waiting for autoconnection grant on the store
+  # https://forum.snapcraft.io/t/interface-auto-connect-request-for-the-guvcview-snap-personal-files/10858
+  #user-guvcview-config:
+    #interface: personal-files
+    #write:
+    #- $HOME/.config/guvcview2
+
   # Recommendations from snappy-debug
   screen-inhibit-control:
 
