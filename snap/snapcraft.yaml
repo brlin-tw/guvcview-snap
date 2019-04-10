@@ -317,29 +317,29 @@ apps:
     desktop: usr/share/applications/guvcview-control-panel.desktop
 
 plugs:
-  # Basic graphical resources
-  desktop:
-
-  # Input method framwork/A11Y support
-  desktop-legacy:
-
-  # X Window System access
-  #x11: # Covered by unity7 interface
-
-  # Unity DE support (e.g. global menu)
-  unity7:
-
-  # Wayland support
-  wayland:
+  # Audio access
+  alsa:
+  pulseaudio:
 
   # V4L device access
   camera: # Non-A-C
+
+  # Common desktop interfaces
+  # https://forum.snapcraft.io/t/the-desktop-interfaces/2042
+  desktop:
+  desktop-legacy:
+  unity7:
+  wayland:
 
   # GNOME and Gtk runtime via content sharing
   gnome-3-28-1804:
     interface: content
     target: $SNAP/gnome-platform
     default-provider: gnome-3-28-1804
+
+  # Gtk Common Themes support
+  # https://forum.snapcraft.io/t/how-to-use-the-system-gtk-theme-via-the-gtk-common-themes-snap/6235
+  gsettings:
   gtk-3-themes:
     interface: content
     target: $SNAP/data-dir/themes
@@ -353,23 +353,18 @@ plugs:
     target: $SNAP/data-dir/sounds
     default-provider: gtk-common-themes
 
+  # Unknown, related with H264 panel
+  hardware-observe:
+
   # Storage access
   home:
   removable-media: # Non-A-C
 
-  # Audio access
-  alsa:
-  pulseaudio:
-
   # For SDL2 hardware acceleration
   opengl:
 
-  # Recommendations from snappy-debug #
-  gsettings:
+  # Recommendations from snappy-debug
   screen-inhibit-control:
-
-  # Unknown, related with H264 panel
-  hardware-observe:
 
 layout:
   # Fix resource relocation problem of zenity part
