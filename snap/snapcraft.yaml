@@ -82,7 +82,7 @@ parts:
   #ccache:
     #plugin: nil
     #build-snaps:
-    #- ccache/latest/edge
+    #- ccache
     #prime:
     #- -*
 
