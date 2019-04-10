@@ -55,27 +55,10 @@ parts:
 
   # Integrate custom dialogs in your snap - doc - snapcraft.io
   # https://forum.snapcraft.io/t/integrate-custom-dialogs-in-your-snap/10825
-  zenity:
+  zenity-integration:
     plugin: nil
-    stage-packages:
-    - zenity
-    filesets:
-      docs-debian:
-      - usr/share/doc/zenity*/*
-      docs-gnome-help:
-      - usr/share/help/*/zenity/*
-      docs-manpages:
-      - usr/share/man/*/zenity*
-      executables:
-      - usr/bin/zenity
-      library-shared:
-      - lib/**/*.so*
-      - usr/lib/**/*.so*
-      runtime-resources:
-      - usr/share/zenity/*
-    stage:
-    - $executables
-    - $runtime-resources
+    stage-snaps:
+    - zenity-integration
 
   # Speeding up packaging development iteration by using compiler cache
   # https://forum.snapcraft.io/t/the-ccache-build-snap/10820
